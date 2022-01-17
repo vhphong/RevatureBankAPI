@@ -16,6 +16,7 @@ import com.revature.projects.RevatureBankAPI.exceptions.RevBankResourceNotFoundE
 import com.revature.projects.RevatureBankAPI.model.Account;
 import com.revature.projects.RevatureBankAPI.repository.AccountRepository;
 
+@CrossOrigin(origins = "http://localhost:8080")         // cors
 @RestController
 @RequestMapping("/RevBankAPI/v1/")
 public class AccountController {

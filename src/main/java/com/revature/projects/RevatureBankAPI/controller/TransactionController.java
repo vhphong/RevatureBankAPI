@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8080")         // cors
 @RestController
 @RequestMapping("/RevBankAPI/v1/")
 public class TransactionController {
