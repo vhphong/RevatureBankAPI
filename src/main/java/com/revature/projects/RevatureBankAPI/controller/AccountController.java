@@ -1,5 +1,6 @@
 package com.revature.projects.RevatureBankAPI.controller;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,12 @@ public class AccountController {
 
     // create an account
     /*
-     * { "custId": 1, "balance": 0.00, "dateOfOpening": "2021-11-22", "status": true
+     * {
+     *    "custId": 1,
+     *    "balance": 0.00,
+     *    "dateOfOpening":
+     *    "2021-11-22",
+     *    "status": true
      * }
      */
     @PostMapping("accounts")
@@ -105,7 +111,8 @@ public class AccountController {
                 () -> new RevBankResourceNotFoundException("Account with id: " + accountId + " not found"));
 
         if (account.getBalance() >= money.getAmount()) {
-            account.setBalance(account.getBalance() - money.getAmount());
+            DecimalFormat df = new DecimalFormat("#.00");
+            account.setBalance(Double.parseDouble(df.format(account.getBalance() - money.getAmount())));
         }
 
         return ResponseEntity.ok(this.accountRepository.save(account));

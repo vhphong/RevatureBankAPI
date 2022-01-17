@@ -29,11 +29,11 @@ public class Transaction {
 	@Column(name = "status")
 	private String status;
 
-	@Column(name = "from_account")
-	private Long fromAccount;
+	@Column(name = "from_account_id")
+	private Long fromAccountId;
 
-	@Column(name = "to_account")
-	private Long toAccount;
+	@Column(name = "to_account_id")
+	private Long toAccountId;
 
 	@Column(name = "customer_id")
 	private Long custId; // fk
@@ -45,14 +45,14 @@ public class Transaction {
 		super();
 	}
 
-	public Transaction(String type, Date dateOfTransaction, double amount, String status, Long fromAccount,
-			Long toAccount, Long custId, Long acctId) {
+	public Transaction(String type, Date dateOfTransaction, double amount, String status, Long fromAccountId,
+			Long toAccountId, Long custId, Long acctId) {
 		this.type = type;
 		this.dateOfTransaction = dateOfTransaction;
 		this.amount = amount;
 		this.status = status;
-		this.fromAccount = fromAccount;
-		this.toAccount = toAccount;
+		this.fromAccountId = fromAccountId;
+		this.toAccountId = toAccountId;
 		this.custId = custId;
 		this.acctId = acctId;
 	}
@@ -97,20 +97,20 @@ public class Transaction {
 		this.status = status;
 	}
 
-	public Long getFromAccount() {
-		return fromAccount;
+	public Long getFromAccountId() {
+		return fromAccountId;
 	}
 
-	public void setFromAccount(Long fromAccount) {
-		this.fromAccount = fromAccount;
+	public void setFromAccountId(Long fromAccountId) {
+		this.fromAccountId = fromAccountId;
 	}
 
-	public Long getToAccount() {
-		return toAccount;
+	public Long getToAccountId() {
+		return toAccountId;
 	}
 
-	public void setToAccount(Long toAccount) {
-		this.toAccount = toAccount;
+	public void setToAccountId(Long toAccountId) {
+		this.toAccountId = toAccountId;
 	}
 
 	public Long getCustId() {
@@ -132,8 +132,8 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return "Transaction [transactionId=" + transactionId + ", type=" + type + ", dateOfTransaction="
-				+ dateOfTransaction + ", amount=" + amount + ", status=" + status + ", fromAccount=" + fromAccount
-				+ ", toAccount=" + toAccount + ", custId=" + custId + ", acctId=" + acctId + "]";
+				+ dateOfTransaction + ", amount=" + amount + ", status=" + status + ", fromAccountId=" + fromAccountId
+				+ ", toAccountId=" + toAccountId + ", custId=" + custId + ", acctId=" + acctId + "]";
 	}
 
 }
