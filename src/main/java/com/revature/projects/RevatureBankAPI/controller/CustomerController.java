@@ -6,7 +6,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.projects.RevatureBankAPI.exceptions.RevBankResourceNotFoundException;
 import com.revature.projects.RevatureBankAPI.model.Customer;
@@ -16,82 +23,75 @@ import com.revature.projects.RevatureBankAPI.repository.CustomerRepository;
 @RequestMapping("/RevBankAPI/v1/")
 public class CustomerController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 
-    // get all customers
-    @GetMapping("customers")
-    public List<Customer> getAllCustomers() {
+	// get all customers
+	@GetMapping("customers")
+	public List<Customer> getAllCustomers() {
 
-        return this.customerRepository.findAll();
+		return this.customerRepository.findAll();
 
-    }
+	}
 
+	// get customer by id
+	@GetMapping("/customers/{id}")
+	public ResponseEntity<Customer> getCustomerById(@PathVariable(value = "id") Long customerId)
+			throws RevBankResourceNotFoundException {
 
-    // get customer by id
-    @GetMapping("/customers/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable(value = "id") Long customerId)
-            throws RevBankResourceNotFoundException {
+		Customer customer = customerRepository.findById(customerId).orElseThrow(
+				() -> new RevBankResourceNotFoundException("Customer with id: " + customerId + " not found"));
 
-        Customer customer = customerRepository.findById(customerId).orElseThrow(
-                () -> new RevBankResourceNotFoundException("Customer with id: " + customerId + " not found"));
+		return ResponseEntity.ok().body(customer);
+	}
 
-        return ResponseEntity.ok().body(customer);
-    }
+	// create a customer
+	/*
+	 * Body 's JSON: { "name": "Phong", "email": "phong@revbank.com", "dob":
+	 * "2001-08-18", "mobile": "123456789", "address": "111 A St", "password":
+	 * "phong1" }
+	 */
+	@PostMapping("customers")
+	public Customer createCustomer(@RequestBody Customer customer) {
 
+		return this.customerRepository.save(customer);
 
-    // create a customer
-	/* Body 's JSON:
-	* 	{
-			"name": "Phong",
-			"email": "phong@revbank.com",
-			"dob": "2001-08-18",
-			"mobile": "123456789",
-			"address": "111 A St",
-			"password": "phong1"
-		}
-	* */
-    @PostMapping("customers")
-    public Customer createCustomer(@RequestBody Customer customer) {
+	}
 
-        return this.customerRepository.save(customer);
+	// update customer
+	@PutMapping("/customers/{id}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "id") Long customerId,
+			@RequestBody Customer newerData) throws RevBankResourceNotFoundException {
 
-    }
+		Customer customer = customerRepository.findById(customerId).orElseThrow(
+				() -> new RevBankResourceNotFoundException("Customer with id: " + customerId + " not found"));
 
+		customer.setName(newerData.getName());
+		customer.setEmail(newerData.getEmail());
+		customer.setDob(newerData.getDob());
+		customer.setMobile(newerData.getMobile());
+		customer.setAddress(newerData.getAddress());
+		customer.setPassword(newerData.getPassword());
 
-    // update customer
-    @PutMapping("/customers/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "id") Long customerId, @RequestBody Customer newerData) throws RevBankResourceNotFoundException {
+		return ResponseEntity.ok(this.customerRepository.save(customer));
 
-        Customer customer = customerRepository.findById(customerId).
-                orElseThrow(() -> new RevBankResourceNotFoundException("Customer with id: " + customerId + " not found"));
+	}
 
-        customer.setName(newerData.getName());
-        customer.setEmail(newerData.getEmail());
-        customer.setDob(newerData.getDob());
-        customer.setMobile(newerData.getMobile());
-        customer.setAddress(newerData.getAddress());
-        customer.setPassword(newerData.getPassword());
+	// delete customer
+	@DeleteMapping("/customers/{id}")
+	public Map<String, Boolean> deleteCustomer(@PathVariable(value = "id") Long customerId)
+			throws RevBankResourceNotFoundException {
 
-        return ResponseEntity.ok(this.customerRepository.save(customer));
+		Customer customer = customerRepository.findById(customerId).orElseThrow(
+				() -> new RevBankResourceNotFoundException("Customer with id: " + customerId + " not found"));
 
-    }
+		this.customerRepository.delete(customer);
 
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
 
-    // delete customer
-    @DeleteMapping("/customers/{id}")
-    public Map<String, Boolean> deleteCustomer(@PathVariable(value = "id") Long customerId) throws RevBankResourceNotFoundException {
+		return response;
 
-        Customer customer = customerRepository.findById(customerId).
-                orElseThrow(() -> new RevBankResourceNotFoundException("Customer with id: " + customerId + " not found"));
-
-        this.customerRepository.delete(customer);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-
-        return response;
-
-    }
+	}
 
 }
