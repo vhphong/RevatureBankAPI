@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.revature.projects.RevatureBankAPI.model.Customer;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class CustomerRepositoryTest {
 	}
 
 	@Test
+	@Rollback(value = false)
 	public void testUpdateCustomer() {
 
 		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
@@ -80,6 +82,7 @@ public class CustomerRepositoryTest {
 	}
 
 	@Test
+	@Rollback(value = false)
 	public void testDeleteCustomer() {
 
 		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
