@@ -7,4 +7,8 @@ import com.revature.projects.RevatureBankAPI.model.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
+    public Customer findByName(String name);
+
+
 }

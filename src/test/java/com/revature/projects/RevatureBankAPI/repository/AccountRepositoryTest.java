@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +20,7 @@ public class AccountRepositoryTest {
     private AccountRepository accountRepository;
 
     @Test
+    @Rollback(value = false)
     public void testCreateAccount() {
 
         Account account = new Account(Long.valueOf(1),123.45, true);
