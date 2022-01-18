@@ -2,6 +2,7 @@ package com.revature.projects.RevatureBankAPI.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,23 @@ public class TransactionRepositoryTest {
 
 		assertThat(isExisted).isEqualTo(true);
 	}
+
+	@Test
+	public void testFindTransactionByTransactionIdNotExisted() {
+
+		Transaction transaction = new Transaction();
+		transaction.setType("saving");
+		transaction.setAmount(4563.12);
+		transaction.setStatus("active");
+		transaction.setCustId(Long.valueOf(1));
+
+		Transaction savedTransaction = transactionRepository.save(transaction);
+
+		Transaction expectedTransaction = entityManager.find(Transaction.class, savedTransaction.getTransactionId() + 999999999);
+
+		assertNull(expectedTransaction);
+
+	}
+
 
 }
