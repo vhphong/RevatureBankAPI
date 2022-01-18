@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import com.revature.projects.RevatureBankAPI.model.Transaction;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
+
 @DataJpaTest
 public class TransactionRepositoryTest {
 
@@ -86,6 +88,23 @@ public class TransactionRepositoryTest {
 		expectedTransaction.setAmount(888.88);
 
 		assertThat(expectedTransaction.getAmount()).isEqualTo(888.88);
+
+	}
+
+	@Test
+	public void testGetAllTransactions() {
+
+		Transaction transaction = new Transaction();
+		transaction.setType("saving");
+		transaction.setAmount(4563.12);
+		transaction.setStatus("active");
+		transaction.setCustId(Long.valueOf(1));
+
+		Transaction savedTransaction = transactionRepository.save(transaction);
+
+		List<Transaction> transactions = transactionRepository.findAll();
+
+		assertThat(transactions).size().isGreaterThan(0);
 
 	}
 
