@@ -51,4 +51,18 @@ public class CustomerRepositoryTest {
 		assertNull(expectedCustomer);
 
 	}
+
+	@Test
+	public void testUpdateCustomer() {
+
+		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
+		Customer savedCustomer = customerRepository.save(customer);
+
+		Customer expectedCustomer = entityManager.find(Customer.class, savedCustomer.getId());
+		expectedCustomer.setPassword("newpassword");
+
+		assertThat(expectedCustomer.getPassword()).isEqualTo("newpassword");
+
+	}
+
 }
