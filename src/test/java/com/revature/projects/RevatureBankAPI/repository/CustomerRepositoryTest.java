@@ -52,7 +52,7 @@ public class CustomerRepositoryTest {
 
 		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
 		Customer savedCustomer = customerRepository.save(customer);
-		Customer expectedCustomer = entityManager.find(Customer.class, savedCustomer.getId() + 999999999);
+		Customer expectedCustomer = entityManager.find(Customer.class, Long.valueOf(999999999));
 
 		assertNull(expectedCustomer);
 

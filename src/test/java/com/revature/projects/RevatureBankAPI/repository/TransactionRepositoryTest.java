@@ -66,7 +66,7 @@ public class TransactionRepositoryTest {
 
 		Transaction savedTransaction = transactionRepository.save(transaction);
 
-		Transaction expectedTransaction = entityManager.find(Transaction.class, savedTransaction.getTransactionId() + 999999999);
+		Transaction expectedTransaction = entityManager.find(Transaction.class, Long.valueOf(999999999));
 
 		assertNull(expectedTransaction);
 

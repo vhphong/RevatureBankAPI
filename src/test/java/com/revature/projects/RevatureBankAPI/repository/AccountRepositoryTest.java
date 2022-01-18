@@ -52,7 +52,7 @@ public class AccountRepositoryTest {
 		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 
-		Account expectedAccount = entityManager.find(Account.class, savedAccount.getAccountId() + 999999999);
+		Account expectedAccount = entityManager.find(Account.class, Long.valueOf(999999999));
 
 		assertNull(expectedAccount);
 
