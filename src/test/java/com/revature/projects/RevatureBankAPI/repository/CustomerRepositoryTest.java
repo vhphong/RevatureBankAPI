@@ -1,17 +1,20 @@
 package com.revature.projects.RevatureBankAPI.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-
-import com.revature.projects.RevatureBankAPI.model.Customer;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.List;
+import com.revature.projects.RevatureBankAPI.model.Customer;
 
 @DataJpaTest
 public class CustomerRepositoryTest {
@@ -75,7 +78,7 @@ public class CustomerRepositoryTest {
 		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
 		customerRepository.save(customer);
 
-		List<Customer> customers = (List<Customer>) customerRepository.findAll();
+		List<Customer> customers = customerRepository.findAll();
 
 		assertThat(customers).size().isGreaterThan(0);
 
