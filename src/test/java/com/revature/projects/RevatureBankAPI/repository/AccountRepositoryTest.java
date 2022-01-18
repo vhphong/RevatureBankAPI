@@ -1,8 +1,7 @@
 package com.revature.projects.RevatureBankAPI.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +81,26 @@ public class AccountRepositoryTest {
 		List<Account> accounts = accountRepository.findAll();
 
 		assertThat(accounts).size().isGreaterThan(0);
+
+	}
+
+	@Test
+	@Rollback(value = false)
+	public void testDeleteAccount() {
+
+		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account savedAccount = accountRepository.save(account);
+
+		Long acctid = savedAccount.getAccountId();
+
+		boolean isExistedBeforeDelete = accountRepository.findById(acctid).isPresent();
+
+		accountRepository.deleteById(acctid);
+
+		boolean isExistedAfterDelete = accountRepository.findById(acctid).isPresent();
+
+		assertTrue(isExistedBeforeDelete);
+		assertFalse(isExistedAfterDelete);
 
 	}
 
