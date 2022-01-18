@@ -30,7 +30,6 @@ public class CustomerRepositoryTest {
 
 	}
 
-
 	@Test
 	public void testFindCustomerByCustomerId() {
 
