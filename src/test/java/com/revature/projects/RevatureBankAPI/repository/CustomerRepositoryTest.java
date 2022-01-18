@@ -1,28 +1,31 @@
 package com.revature.projects.RevatureBankAPI.repository;
 
-import com.revature.projects.RevatureBankAPI.model.Customer;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.revature.projects.RevatureBankAPI.model.Customer;
 
 @DataJpaTest
 public class CustomerRepositoryTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
+	@Autowired
+	private TestEntityManager entityManager;
 
-    @Autowired
-    private CustomerRepository customerRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 
-    @Test
-    public void testCreateCustomer() {
-        Customer customer  = new Customer("TestName","testemail@email.com", "testpassword");
-        Customer savedCustomer = customerRepository.save(customer);
-        Customer expectedCustomer = entityManager.find(Customer.class, savedCustomer.getId());
+	@Test
+	public void testCreateCustomer() {
 
-        assertNotNull(expectedCustomer);
-    }
+		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
+		Customer savedCustomer = customerRepository.save(customer);
+		Customer expectedCustomer = entityManager.find(Customer.class, savedCustomer.getId());
+
+		assertNotNull(expectedCustomer);
+
+	}
 }

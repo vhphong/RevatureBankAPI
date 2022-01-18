@@ -29,6 +29,12 @@ public class Account {
         super();
     }
 
+    public Account(Long custId, double balance, boolean status) {
+        this.custId = custId;
+        this.balance = balance;
+        this.status = status;
+    }
+
     public Account(Long accountId, Long custId, double balance, Date dateOfOpening, boolean status) {
         this.accountId = accountId;
         this.custId = custId;
