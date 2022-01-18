@@ -79,4 +79,23 @@ public class CustomerRepositoryTest {
 
 	}
 
+	@Test
+	public void testDeleteCustomer() {
+
+		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
+		customerRepository.save(customer);
+
+		Long custid = customer.getId();
+
+		boolean isExistedBeforeDelete = customerRepository.findById(custid).isPresent();
+
+		customerRepository.deleteById(custid);
+
+		boolean isExistedAfterDelete = customerRepository.findById(custid).isPresent();
+
+		assertTrue(isExistedBeforeDelete);
+		assertFalse(isExistedAfterDelete);
+
+	}
+
 }
