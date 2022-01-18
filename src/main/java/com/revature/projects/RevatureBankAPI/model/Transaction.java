@@ -46,7 +46,7 @@ public class Transaction {
 	}
 
 	public Transaction(String type, Date dateOfTransaction, double amount, String status, Long fromAccountId,
-			Long toAccountId, Long custId, Long acctId) {
+					   Long toAccountId, Long custId, Long acctId) {
 		this.type = type;
 		this.dateOfTransaction = dateOfTransaction;
 		this.amount = amount;

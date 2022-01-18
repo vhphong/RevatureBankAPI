@@ -53,6 +53,18 @@ public class TransactionController {
 
     // update status of a transaction
     // request body contains the new status
+    /* Body 's JSON
+    * {
+            "type": "debit",
+            "dateOfTransaction": "2020-11-22",
+            "amount": "123.45",
+            "status": "success",
+            "fromAccountId": "1",
+            "toAccountId": 2,
+            "custId": 1,
+            "acctId": 1
+      }
+    * */
     @PutMapping("/transactions/{id}")
     public ResponseEntity<Transaction> updateTransaction(@PathVariable(value = "id") Long transactionId,
                                                          @RequestBody Transaction newerData) throws RevBankResourceNotFoundException {
