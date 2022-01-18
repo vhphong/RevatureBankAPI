@@ -64,79 +64,79 @@ public class Transaction {
 		this.acctId = acctId;
 	}
 
-    public Long getTransactionId() {
-        return transactionId;
-    }
+	public Long getTransactionId() {
+		return transactionId;
+	}
 
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
-    }
+	public void setTransactionId(Long transactionId) {
+		this.transactionId = transactionId;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public Date getDateOfTransaction() {
-        return dateOfTransaction;
-    }
+	public Date getDateOfTransaction() {
+		return dateOfTransaction;
+	}
 
-    public void setDateOfTransaction(Date dateOfTransaction) {
-        this.dateOfTransaction = dateOfTransaction;
-    }
+	public void setDateOfTransaction(Date dateOfTransaction) {
+		this.dateOfTransaction = dateOfTransaction;
+	}
 
-    public double getAmount() {
-        return amount;
-    }
+	public double getAmount() {
+		return amount;
+	}
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public Long getFromAccountId() {
-        return fromAccountId;
-    }
+	public Long getFromAccountId() {
+		return fromAccountId;
+	}
 
-    public void setFromAccountId(Long fromAccountId) {
-        this.fromAccountId = fromAccountId;
-    }
+	public void setFromAccountId(Long fromAccountId) {
+		this.fromAccountId = fromAccountId;
+	}
 
-    public Long getToAccountId() {
-        return toAccountId;
-    }
+	public Long getToAccountId() {
+		return toAccountId;
+	}
 
-    public void setToAccountId(Long toAccountId) {
-        this.toAccountId = toAccountId;
-    }
+	public void setToAccountId(Long toAccountId) {
+		this.toAccountId = toAccountId;
+	}
 
-    public Long getCustId() {
-        return custId;
-    }
+	public Long getCustId() {
+		return custId;
+	}
 
-    public void setCustId(Long custId) {
-        this.custId = custId;
-    }
+	public void setCustId(Long custId) {
+		this.custId = custId;
+	}
 
-    public Long getAcctId() {
-        return acctId;
-    }
+	public Long getAcctId() {
+		return acctId;
+	}
 
-    public void setAcctId(Long acctId) {
-        this.acctId = acctId;
-    }
+	public void setAcctId(Long acctId) {
+		this.acctId = acctId;
+	}
 
-    @Override
+	@Override
 	public String toString() {
 		return "Transaction [transactionId=" + transactionId + ", type=" + type + ", dateOfTransaction="
 				+ dateOfTransaction + ", amount=" + amount + ", status=" + status + ", fromAccountId=" + fromAccountId

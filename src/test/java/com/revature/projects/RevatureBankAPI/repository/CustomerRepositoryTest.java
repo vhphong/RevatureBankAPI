@@ -1,7 +1,7 @@
 package com.revature.projects.RevatureBankAPI.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +38,17 @@ public class CustomerRepositoryTest {
 		Boolean isExisted = customerRepository.existsById(savedCustomer.getId());
 
 		assertThat(isExisted).isEqualTo(true);
+
+	}
+
+	@Test
+	public void testFindCustomerByCustomerIdNotExisted() {
+
+		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
+		Customer savedCustomer = customerRepository.save(customer);
+		Customer expectedCustomer = entityManager.find(Customer.class, savedCustomer.getId() + 999999999);
+
+		assertNull(expectedCustomer);
+
 	}
 }
