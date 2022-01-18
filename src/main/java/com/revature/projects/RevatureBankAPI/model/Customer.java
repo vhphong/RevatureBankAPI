@@ -39,6 +39,12 @@ public class Customer {
 		super();
 	}
 
+	public Customer(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
 	public Customer(String name, String email, Date dob, String mobile, String address, String password) {
 		this.name = name;
 		this.email = email;

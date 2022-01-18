@@ -9,27 +9,27 @@ import com.revature.projects.RevatureBankAPI.repository.CustomerRepository;
 
 public class CustomerRepositoryTests {
 
-	@Autowired
-	private TestEntityManager entityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
-	@Autowired
-	private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-	// test methods placed here
-	@Test
-	public void testCreateCustomer() {
+    // test methods placed here
+    @Test
+    public void testCreateCustomer() {
 
-		Customer customer = new Customer();
+        Customer customer = new Customer();
 
-		customer.setName("TestSample");
-		customer.setEmail("emailsample@revaturebank.com");
-		customer.setPassword("passwordsample");
+        customer.setName("TestSample");
+        customer.setEmail("emailsample@revaturebank.com");
+        customer.setPassword("passwordsample");
 
-		Customer savedCustomer = customerRepository.save(customer);
-		Customer existedCustomer = entityManager.find(Customer.class, savedCustomer.getId());
+        Customer savedCustomer = customerRepository.save(customer);
+        Customer existedCustomer = entityManager.find(Customer.class, savedCustomer.getId());
 
-		assertThat(customer.getEmail()).isEqualTo(existedCustomer.getEmail());
+        assertThat(customer.getEmail()).isEqualTo(existedCustomer.getEmail());
 
-	}
+    }
 
 }
