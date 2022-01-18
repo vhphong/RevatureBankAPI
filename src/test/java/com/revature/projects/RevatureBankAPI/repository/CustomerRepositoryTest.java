@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.revature.projects.RevatureBankAPI.model.Customer;
 
+import java.util.List;
+
 @DataJpaTest
 public class CustomerRepositoryTest {
 
@@ -62,6 +64,18 @@ public class CustomerRepositoryTest {
 		expectedCustomer.setPassword("newpassword");
 
 		assertThat(expectedCustomer.getPassword()).isEqualTo("newpassword");
+
+	}
+
+	@Test
+	public void testGetAllCustomers() {
+
+		Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
+		customerRepository.save(customer);
+
+		List<Customer> customers = (List<Customer>) customerRepository.findAll();
+
+		assertThat(customers).size().isGreaterThan(0);
 
 	}
 
