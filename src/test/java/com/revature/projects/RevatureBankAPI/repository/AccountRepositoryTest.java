@@ -26,7 +26,7 @@ public class AccountRepositoryTest {
 	@Rollback(value = false)
 	public void testCreateAccount() {
 
-		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 		Account expectedAccount = entityManager.find(Account.class, savedAccount.getAccountId());
 
@@ -37,7 +37,7 @@ public class AccountRepositoryTest {
 	@Test
 	public void testFindAccountByAccountId() {
 
-		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 
 		Boolean isExisted = accountRepository.existsById(savedAccount.getAccountId());
@@ -49,12 +49,12 @@ public class AccountRepositoryTest {
 	@Test
 	public void testFindAccountByAccountIdNotExisted() {
 
-		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 
-		Account expectedCustomer = entityManager.find(Account.class, savedAccount.getAccountId() + 999999999);
+		Account expectedAccount = entityManager.find(Account.class, savedAccount.getAccountId() + 999999999);
 
-		assertNull(expectedCustomer);
+		assertNull(expectedAccount);
 
 	}
 
@@ -62,20 +62,20 @@ public class AccountRepositoryTest {
 	@Rollback(value = false)
 	public void testUpdateAccount() {
 
-		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 
-		Account expectedCustomer = entityManager.find(Account.class, savedAccount.getAccountId());
-		expectedCustomer.setBalance(888.88);
+		Account expectedAccount = entityManager.find(Account.class, savedAccount.getAccountId());
+		expectedAccount.setBalance(888.88);
 
-		assertThat(expectedCustomer.getBalance()).isEqualTo(888.88);
+		assertThat(expectedAccount.getBalance()).isEqualTo(888.88);
 
 	}
 
 	@Test
 	public void testGetAllAccounts() {
 
-		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 
 		List<Account> accounts = accountRepository.findAll();
@@ -88,7 +88,7 @@ public class AccountRepositoryTest {
 	@Rollback(value = false)
 	public void testDeleteAccount() {
 
-		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account account = new Account(Long.valueOf(1), 123.45, "active");
 		Account savedAccount = accountRepository.save(account);
 
 		Long acctid = savedAccount.getAccountId();

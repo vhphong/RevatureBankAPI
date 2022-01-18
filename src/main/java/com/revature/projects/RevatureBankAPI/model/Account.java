@@ -27,19 +27,19 @@ public class Account {
 	private Date dateOfOpening;
 
 	@Column(name = "status")
-	private boolean status;
+	private String status;
 
 	public Account() {
 		super();
 	}
 
-	public Account(Long custId, double balance, boolean status) {
+	public Account(Long custId, double balance, String status) {
 		this.custId = custId;
 		this.balance = balance;
 		this.status = status;
 	}
 
-	public Account(Long accountId, Long custId, double balance, Date dateOfOpening, boolean status) {
+	public Account(Long accountId, Long custId, double balance, Date dateOfOpening, String status) {
 		this.accountId = accountId;
 		this.custId = custId;
 		this.balance = balance;
@@ -79,11 +79,11 @@ public class Account {
 		this.dateOfOpening = dateOfOpening;
 	}
 
-	public boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

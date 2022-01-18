@@ -52,6 +52,7 @@ public class TransactionRepositoryTest {
 		Boolean isExisted = transactionRepository.existsById(savedTransaction.getTransactionId());
 
 		assertThat(isExisted).isEqualTo(true);
+
 	}
 
 	@Test
@@ -131,6 +132,5 @@ public class TransactionRepositoryTest {
 		assertFalse(isExistedAfterDelete);
 
 	}
-
 
 }
