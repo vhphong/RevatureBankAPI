@@ -12,6 +12,8 @@ import org.springframework.test.annotation.Rollback;
 
 import com.revature.projects.RevatureBankAPI.model.Account;
 
+import java.util.List;
+
 @DataJpaTest
 public class AccountRepositoryTest {
 
@@ -69,7 +71,17 @@ public class AccountRepositoryTest {
 
 		assertThat(expectedCustomer.getBalance()).isEqualTo(888.88);
 
+	}
 
+	@Test
+	public void testGetAllAccounts() {
+
+		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account savedAccount = accountRepository.save(account);
+
+		List<Account> accounts = accountRepository.findAll();
+
+		assertThat(accounts).size().isGreaterThan(0);
 
 	}
 
