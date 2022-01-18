@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.revature.projects.RevatureBankAPI.model.Transaction;
+import org.springframework.test.annotation.Rollback;
 
 @DataJpaTest
 public class TransactionRepositoryTest {
@@ -66,6 +67,25 @@ public class TransactionRepositoryTest {
 		Transaction expectedTransaction = entityManager.find(Transaction.class, savedTransaction.getTransactionId() + 999999999);
 
 		assertNull(expectedTransaction);
+
+	}
+
+	@Test
+	@Rollback(value = false)
+	public void testUpdateTransaction() {
+
+		Transaction transaction = new Transaction();
+		transaction.setType("saving");
+		transaction.setAmount(4563.12);
+		transaction.setStatus("active");
+		transaction.setCustId(Long.valueOf(1));
+
+		Transaction savedTransaction = transactionRepository.save(transaction);
+
+		Transaction expectedTransaction = entityManager.find(Transaction.class, savedTransaction.getTransactionId());
+		expectedTransaction.setAmount(888.88);
+
+		assertThat(expectedTransaction.getAmount()).isEqualTo(888.88);
 
 	}
 
