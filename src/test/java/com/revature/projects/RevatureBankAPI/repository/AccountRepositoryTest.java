@@ -1,5 +1,6 @@
 package com.revature.projects.RevatureBankAPI.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,17 @@ public class AccountRepositoryTest {
 
 		assertNotNull(expectedAccount);
 
+	}
+
+	@Test
+	public void testFindAccountByAccountId() {
+
+		Account account = new Account(Long.valueOf(1), 123.45, true);
+		Account savedAccount = accountRepository.save(account);
+
+		Boolean isExisted = accountRepository.existsById(savedAccount.getAccountId());
+
+		assertThat(isExisted).isEqualTo(true);
 	}
 
 }
