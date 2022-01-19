@@ -1,10 +1,16 @@
 package com.revature.projects.RevatureBankAPI.repositories;
 
 import com.revature.projects.RevatureBankAPI.models.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 public class CustomerRepositoryImpl implements CustomerRepository {
+
+    @Autowired
+    private Customer customer;
+
+
     @Override
     public <S extends Customer> S save(S entity) {
         return null;
