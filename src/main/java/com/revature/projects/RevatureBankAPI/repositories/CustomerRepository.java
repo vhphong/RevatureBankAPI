@@ -13,7 +13,4 @@ import java.util.List;
 //public interface CustomerRepository extends ReactiveCrudRepository<Customer, Long> {
 //}
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-
-//    List<Customer> findAll();
-
 }
