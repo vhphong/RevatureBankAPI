@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RbResourceNotFoundException extends RuntimeException {
 
     public RbResourceNotFoundException(String message) {
-
         super(message);
-
     }
 
 }

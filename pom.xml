@@ -12,7 +12,7 @@
 	<artifactId>RevatureBankAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RevatureBankAPI</name>
-	<description>REST API for Revature Bank</description>
+	<description>REST API implements CRUD using Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -62,11 +62,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>dev.miku</groupId>
 			<artifactId>r2dbc-mysql</artifactId>
 			<scope>runtime</scope>
@@ -74,11 +69,6 @@
 		<dependency>
 			<groupId>io.r2dbc</groupId>
 			<artifactId>r2dbc-h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.r2dbc</groupId>
-			<artifactId>r2dbc-mssql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

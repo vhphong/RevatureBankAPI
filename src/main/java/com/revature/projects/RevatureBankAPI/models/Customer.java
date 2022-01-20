@@ -1,11 +1,6 @@
 package com.revature.projects.RevatureBankAPI.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -53,12 +48,12 @@ public class Customer {
         this.password = password;
     }
 
-    public Long getCustomerId() {
+    public Long getId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setId(Long id) {
+        this.customerId = id;
     }
 
     public String getName() {

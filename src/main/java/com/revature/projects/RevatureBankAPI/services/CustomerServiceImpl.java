@@ -11,7 +11,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-
     @Override
     public List<Customer> findAllCustomers() {
         return null;
@@ -36,4 +35,5 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean removeCustomer(Long id) {
         return false;
     }
+
 }
