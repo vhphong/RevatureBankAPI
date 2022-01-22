@@ -61,7 +61,18 @@ public class CustomerRepositoryTest {
 
         assertThat(isExisted).isEqualTo(true);
     }
-    
+
+    // test of repository's listCustomerById not existed
+    @Test
+    public void testListCustomerByIdNotExisted() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        Customer savedCustomer = customerRepository.save(customer1);
+
+        Long fakeId = Long.valueOf(999999999);
+        Boolean isExisted = customerRepository.existsById(fakeId);
+
+        assertThat(isExisted).isEqualTo(false);
+    }
 
 
 }
