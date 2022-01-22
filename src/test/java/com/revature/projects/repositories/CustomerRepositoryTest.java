@@ -57,11 +57,11 @@ public class CustomerRepositoryTest {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer = customerRepository.save(customer1);
 
-        customerRepository.save(customer1);
         Boolean isExisted = customerRepository.existsById(savedCustomer.getId());
 
         assertThat(isExisted).isEqualTo(true);
     }
+    
 
 
 }
