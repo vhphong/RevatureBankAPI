@@ -74,6 +74,27 @@ public class CustomerRepositoryTest {
         assertThat(isExisted).isEqualTo(false);
     }
 
+    // test of repository's modifyCustomer
+    @Test
+    public void testModifyCustomer() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        Customer savedCustomer = customerRepository.save(customer1);
+
+        Customer existingCustomer = testEntityManager.find(Customer.class, savedCustomer.getId());
+
+        String newName = "test name 2";
+        String newEmail = "testemail2@rb.com";
+        String newPassword = "newpassword";
+
+        existingCustomer.setName(newName);
+        existingCustomer.setEmail(newEmail);
+        existingCustomer.setPassword(newPassword);
+
+        // save existingCustomer to the DB
+        customerRepository.save(existingCustomer);
+
+        assertThat(existingCustomer.getName()).isEqualTo(newName);
+    }
 
 }
 

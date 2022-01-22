@@ -60,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
         existingCustomer.setEmail(customer.getEmail());
         existingCustomer.setPassword(customer.getPassword());
 
-        // save existingCustomer to DB
+        // save existingCustomer to the DB
         customerRepository.save(existingCustomer);
 
         return existingCustomer;
