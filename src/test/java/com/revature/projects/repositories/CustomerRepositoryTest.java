@@ -1,0 +1,54 @@
+package com.revature.projects.repositories;
+
+import com.revature.projects.models.Customer;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class CustomerRepositoryTest {
+
+    @Autowired
+    private TestEntityManager testEntityManager;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+
+    // test of repository's insertCustomer
+    @Test
+    public void testInsertCustomer() {
+
+        Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
+        Customer savedCustomer = customerRepository.save(customer);
+        Customer expectedCustomer = testEntityManager.find(Customer.class, savedCustomer.getId());
+
+        assertNotNull(expectedCustomer);
+    }
+
+    // test of repository's listAllCustomers
+    @Test
+    public void testListAllCustomers() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        Customer customer2 = new Customer("test name 2", "testemail2rb.com", "456");
+
+        customerRepository.save(customer1);
+        customerRepository.save(customer2);
+
+        List<Customer> customers = customerRepository.findAll();
+
+        assertThat(customers).size().isGreaterThan(0);
+    }
+
+}

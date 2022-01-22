@@ -28,12 +28,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findAllCustomers() {
+    public List<Customer> listAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public Customer findCustomerById(long id) {
+    public Customer listCustomerById(long id) {
         Optional<Customer> customer = customerRepository.findById(id);
 
 //        if (customer.isPresent()) {

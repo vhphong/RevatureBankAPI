@@ -8,9 +8,9 @@ public interface CustomerService {
 
     Customer insertCustomer(Customer customer);
 
-    List<Customer> findAllCustomers();
+    List<Customer> listAllCustomers();
 
-    Customer findCustomerById(long id);
+    Customer listCustomerById(long id);
 
     Customer modifyCustomer(Customer customer, long id);
 
