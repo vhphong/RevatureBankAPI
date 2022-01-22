@@ -41,7 +41,7 @@ public class CustomerRepositoryTest {
     @Test
     public void testListAllCustomers() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
-        Customer customer2 = new Customer("test name 2", "testemail2rb.com", "456");
+        Customer customer2 = new Customer("test name 2", "testemail2@rb.com", "456");
 
         customerRepository.save(customer1);
         customerRepository.save(customer2);
@@ -51,4 +51,44 @@ public class CustomerRepositoryTest {
         assertThat(customers).size().isGreaterThan(0);
     }
 
+    // test of repository's listCustomerById
+    @Test
+    public void testListCustomerById() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        Customer savedCustomer = customerRepository.save(customer1);
+
+        customerRepository.save(customer1);
+        Boolean isExisted = customerRepository.existsById(savedCustomer.getId());
+
+        assertThat(isExisted).isEqualTo(true);
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
