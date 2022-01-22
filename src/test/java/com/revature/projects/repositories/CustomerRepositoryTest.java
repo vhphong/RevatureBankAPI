@@ -94,33 +94,8 @@ public class CustomerRepositoryTest {
         customerRepository.save(existingCustomer);
 
         assertThat(existingCustomer.getName()).isEqualTo(newName);
+        assertThat(existingCustomer.getEmail()).isEqualTo(newEmail);
+        assertThat(existingCustomer.getPassword()).isEqualTo(newPassword);
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
