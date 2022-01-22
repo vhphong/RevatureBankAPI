@@ -29,13 +29,13 @@ public class CustomerRepositoryTest {
     // test of repository's insertCustomer
     @Test
     public void testInsertCustomer() {
-
         Customer customer = new Customer("TestName", "testemail@email.com", "testpassword");
         Customer savedCustomer = customerRepository.save(customer);
         Customer expectedCustomer = testEntityManager.find(Customer.class, savedCustomer.getId());
 
         assertNotNull(expectedCustomer);
     }
+
 
     // test of repository's listAllCustomers
     @Test
@@ -51,6 +51,7 @@ public class CustomerRepositoryTest {
         assertThat(customers).size().isGreaterThan(0);
     }
 
+
     // test of repository's listCustomerById
     @Test
     public void testListCustomerById() {
@@ -61,6 +62,7 @@ public class CustomerRepositoryTest {
 
         assertThat(isExisted).isEqualTo(true);
     }
+
 
     // test of repository's listCustomerById not existed
     @Test
@@ -73,6 +75,7 @@ public class CustomerRepositoryTest {
 
         assertThat(isExisted).isEqualTo(false);
     }
+
 
     // test of repository's modifyCustomer
     @Test
@@ -99,6 +102,7 @@ public class CustomerRepositoryTest {
         assertThat(existingCustomer.getPassword()).isEqualTo(newPassword);
     }
 
+
     // test of repository's removeCustomer
     @Test
     @Rollback(value = false)
@@ -117,5 +121,4 @@ public class CustomerRepositoryTest {
         assertTrue(isExistedBeforeRemove);
         assertFalse(isExistedAfterRemove);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.revature.projects.controllers;
 
+import com.revature.projects.exceptions.BadRequestException;
 import com.revature.projects.models.Customer;
 import com.revature.projects.services.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+
     // build create employee REST API
     /*
      * Body's JSON:
@@ -33,14 +35,21 @@ public class CustomerController {
      */
     @PostMapping("customers")
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<Customer>(customerService.insertCustomer(customer), HttpStatus.CREATED);
+        if (customer != null) {
+            return new ResponseEntity<Customer>(customerService.insertCustomer(customer), HttpStatus.CREATED);
+        } else {
+            new BadRequestException("Request body does not contain customer data");
+            return null;
+        }
     }
+
 
     // build get all customers REST API
     @GetMapping("customers")
     public List<Customer> getAllCustomers() {
         return customerService.listAllCustomers();
     }
+
 
     // build get a customer by Id REST API
     // http://localhost:8080/RevBankAPI/v2/customers/1
@@ -49,6 +58,7 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customerService.listCustomerById(cId), HttpStatus.OK);
     }
 
+
     // build update customer REST API
     @PutMapping("/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long cId,
@@ -56,14 +66,20 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customerService.modifyCustomer(customer, cId), HttpStatus.OK);
     }
 
+
     // build delete customer REST API
     @DeleteMapping("/customers/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") long cId) {
-        customerService.removeCustomer(cId);
+        if (cId > 0) {
+            Boolean isDeleted = customerService.removeCustomer(cId);
 
-        return new ResponseEntity<String>("Employee deleted successfully!", HttpStatus.OK);
+            if (isDeleted) {
+                return new ResponseEntity<String>("Customer id: " + cId + " deleted successfully.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<String>("Customer id: " + cId + " was not found to delete.", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<String>("Customer id: " + cId + " is invalid.", HttpStatus.NOT_FOUND);
+        }
     }
-
-
-
 }

@@ -24,8 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer insertCustomer(Customer customer) {
         return customerRepository.save(customer);
-
     }
+
 
     @Override
     public List<Customer> listAllCustomers() {
@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer listCustomerById(long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
+//        Optional<Customer> customer = customerRepository.findById(id);
 
 //        if (customer.isPresent()) {
 //            return customer.get();
