@@ -1,18 +1,18 @@
 package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
+
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DataJpaTest
@@ -76,6 +76,7 @@ public class CustomerRepositoryTest {
 
     // test of repository's modifyCustomer
     @Test
+    @Rollback(value = false)
     public void testModifyCustomer() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer = customerRepository.save(customer1);
@@ -96,6 +97,25 @@ public class CustomerRepositoryTest {
         assertThat(existingCustomer.getName()).isEqualTo(newName);
         assertThat(existingCustomer.getEmail()).isEqualTo(newEmail);
         assertThat(existingCustomer.getPassword()).isEqualTo(newPassword);
+    }
+
+    // test of repository's removeCustomer
+    @Test
+    @Rollback(value = false)
+    public void testRemoveCustomer() {
+        Customer customer = new Customer("test name 1", "testemail1@rb.com", "123");
+        Customer savedCustomer = customerRepository.save(customer);
+
+        Long cId = customer.getId();
+
+        Boolean isExistedBeforeRemove = customerRepository.findById(cId).isPresent();
+
+        customerRepository.deleteById(cId);
+
+        Boolean isExistedAfterRemove = customerRepository.findById(cId).isPresent();
+
+        assertTrue(isExistedBeforeRemove);
+        assertFalse(isExistedAfterRemove);
     }
 
 }
