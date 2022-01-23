@@ -51,8 +51,8 @@ public class AccountRepositoryTest {
         Date date2 = new SimpleDateFormat("MM/dd/yyyy").parse(sDate2);
         Account account2 = new Account(2, 634.11, date2, "debit", false);
 
-        Account savedAccount1 = accountRepository.save(account1);
-        Account savedAccount2 = accountRepository.save(account2);
+        accountRepository.save(account1);
+        accountRepository.save(account2);
 
         List<Account> accounts = accountRepository.findAll();
 
