@@ -38,7 +38,7 @@ public class CustomerController {
         if (customer != null) {
             return new ResponseEntity<Customer>(customerService.insertCustomer(customer), HttpStatus.CREATED);
         } else {
-            new BadRequestException("Request body does not contain customer data");
+//            throw new BadRequestException("Request body does not contain customer data");
             return null;
         }
     }

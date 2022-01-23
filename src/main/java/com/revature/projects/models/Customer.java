@@ -9,7 +9,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
+    private Long customerId;        // patterned: tablenameId
 
     @Column(name = "name")
     private String name;

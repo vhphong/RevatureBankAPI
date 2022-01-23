@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-
     private CustomerRepository customerRepository;
 
     @Autowired
@@ -20,6 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
         super();
         this.customerRepository = customerRepository;
     }
+
 
     @Override
     public Customer insertCustomer(Customer customer) {
@@ -32,20 +32,22 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll();
     }
 
+
     @Override
     public Customer listCustomerById(long id) {
-//        Optional<Customer> customer = customerRepository.findById(id);
+        Optional<Customer> customer = customerRepository.findById(id);
 
-//        if (customer.isPresent()) {
-//            return customer.get();
-//        } else {
-//            return null;
-//        }
+        if (customer.isPresent()) {
+            return customer.get();
+        } else {
+            throw new ResourceNotFoundException("Customer with Id: " + id + " was not found.");
+        }
 
-        return customerRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Customer with Id: " + id + " was not found."));
+//        return customerRepository.findById(id).orElseThrow(
+//                () -> new ResourceNotFoundException("Customer with Id: " + id + " was not found."));
     }
 
+    
     @Override
     public Customer modifyCustomer(Customer customer, long id) {
 
@@ -66,6 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
         return existingCustomer;
     }
 
+
     @Override
     public boolean removeCustomer(long id) {
         try {
@@ -78,5 +81,4 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
         }
     }
-
 }

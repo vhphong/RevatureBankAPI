@@ -15,5 +15,4 @@ public interface CustomerService {
     Customer modifyCustomer(Customer customer, long id);
 
     boolean removeCustomer(long id);
-
 }
