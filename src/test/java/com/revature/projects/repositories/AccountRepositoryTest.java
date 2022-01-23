@@ -60,4 +60,13 @@ public class AccountRepositoryTest {
     }
 
 
+    @Test
+    public void testListAccountById() throws ParseException {
+        String sDate1 = "11/25/2021";
+        Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(sDate1);
+        Account account1 = new Account(1, 123.45, date1, "debit", true);
+
+        Account savedAccount = accountRepository.save(account1);
+        assertThat(savedAccount.getAccountId()).isPositive();
+    }
 }

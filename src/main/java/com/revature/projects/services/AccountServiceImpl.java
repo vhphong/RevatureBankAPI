@@ -1,11 +1,13 @@
 package com.revature.projects.services;
 
+import com.revature.projects.exceptions.ResourceNotFoundException;
 import com.revature.projects.models.Account;
 import com.revature.projects.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -40,7 +42,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account listAccountById(long id) {
-        return null;
+        Optional<Account> account = accountRepository.findById(id);
+
+        if (account.isPresent()) {
+            return  account.get();
+        } else {
+            throw new ResourceNotFoundException("Account with Id: " + id + " was not found.");
+        }
+
+        //        return accountRepository.findById(id).orElseThrow(
+//                () -> new ResourceNotFoundException("Account with Id: " + id + " was not found."));
     }
 
 
