@@ -20,33 +20,37 @@ public class Account {
     @Column(name = "opening_date")
     private Date dateOfOpening;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "active")
+    private boolean isActive;
 
     public Account() {
         super();
     }
 
-    public Account(Long custId, double balance, Date dateOfOpening, String status) {
+    public Account(long custId, double balance, Date dateOfOpening, String type, boolean isActive) {
         this.custId = custId;
         this.balance = balance;
         this.dateOfOpening = dateOfOpening;
-        this.status = status;
+        this.type = type;
+        this.isActive = isActive;
     }
 
-    public Long getId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setId(Long id) {
-        this.accountId = id;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
-    public Long getCustId() {
+    public long getCustId() {
         return custId;
     }
 
-    public void setCustId(Long custId) {
+    public void setCustId(long custId) {
         this.custId = custId;
     }
 
@@ -66,12 +70,20 @@ public class Account {
         this.dateOfOpening = dateOfOpening;
     }
 
-    public String getStatus() {
-        return status;
+    public String getType() {
+        return type;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override
@@ -81,7 +93,8 @@ public class Account {
                 ", custId=" + custId +
                 ", balance=" + balance +
                 ", dateOfOpening=" + dateOfOpening +
-                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }

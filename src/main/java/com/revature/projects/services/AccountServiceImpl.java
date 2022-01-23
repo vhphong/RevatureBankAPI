@@ -1,21 +1,36 @@
 package com.revature.projects.services;
 
 import com.revature.projects.models.Account;
+import com.revature.projects.repositories.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AccountServiceImpl implements AccountService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    public AccountServiceImpl(AccountRepository accountRepository) {
+        super();
+        this.accountRepository = accountRepository;
+    }
+
 
     @Override
     public Account insertAccount(Account account) {
-        return null;
+        return accountRepository.save(account);
     }
 
 
     @Override
     public List<Account> listAllAccounts() {
-        return null;
+        return accountRepository.findAll();
     }
+
 
     @Override
     public List<Account> listAllAccountsByName(String name) {

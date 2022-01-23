@@ -1,7 +1,6 @@
 package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -48,7 +47,7 @@ public class CustomerRepositoryTest {
 
         List<Customer> customers = customerRepository.findAll();
 
-        assertThat(customers).size().isGreaterThan(0);
+        assertThat(customers).size().isGreaterThanOrEqualTo(2);
     }
 
 
