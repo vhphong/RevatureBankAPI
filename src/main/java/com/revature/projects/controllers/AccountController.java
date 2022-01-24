@@ -31,6 +31,8 @@ public class AccountController {
             "type": "debit",
             "isActive": true
         }
+
+        http://localhost:8080/RevBankAPI/v2/accounts
     */
     @PostMapping("accounts")
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
@@ -43,8 +45,43 @@ public class AccountController {
 
 
     // build get all accounts REST API
+    // http://localhost:8080/RevBankAPI/v2/accounts
     @GetMapping("accounts")
     public List<Account> getAllAccounts() {
         return accountService.listAllAccounts();
+    }
+
+
+    // build get account by Id REST API
+    // http://localhost:8080/RevBankAPI/v2/accounts/1
+    @GetMapping("/accounts/{id}")
+    public ResponseEntity<Account> getAccountById(@PathVariable("id") long acctId) {
+        return new ResponseEntity<Account>(accountService.listAccountById(acctId), HttpStatus.OK);
+    }
+
+
+    // build update account REST API
+    // http://localhost:8080/RevBankAPI/v2/accounts/17
+    @PutMapping("/accounts/{id}")
+    public ResponseEntity<Account> updateAccount(@PathVariable("id") long acctId,
+                                                 @RequestBody Account account) {
+        return new ResponseEntity<Account>(accountService.modifyAccount(account, acctId), HttpStatus.OK);
+    }
+
+
+    // build delete account REST API
+    @DeleteMapping("/accounts/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable("id") long acctId) {
+        if (acctId > 0) {
+            boolean isDeleted = accountService.removeAccount(acctId);
+
+            if (isDeleted) {
+                return new ResponseEntity<String>("Account id: " + acctId + " deleted successfully.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<String>("Account id: " + acctId + " was not found to delete.", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<String>("Account id: " + acctId + " is invalid.", HttpStatus.BAD_REQUEST);
+        }
     }
 }
