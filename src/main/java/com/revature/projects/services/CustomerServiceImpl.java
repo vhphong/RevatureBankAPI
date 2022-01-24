@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer modifyCustomer(Customer customer, long id) {
 
-        // check whether customer with given id is existed in the database or not
+        // check whether customer with given id is existing in the database or not
         Customer existingCustomer = customerRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Customer with Id: " + id + " was not found."));
 

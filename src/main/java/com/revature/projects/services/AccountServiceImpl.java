@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
         Optional<Account> account = accountRepository.findById(id);
 
         if (account.isPresent()) {
-            return  account.get();
+            return account.get();
         } else {
             throw new ResourceNotFoundException("Account with Id: " + id + " was not found.");
         }
@@ -57,7 +57,20 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account modifyAccount(Account account, long id) {
-        return null;
+        // check whether account with given id is existing in the database or not
+        Account existingAccount = accountRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Account with Id: " + id + " was not found."));
+
+        existingAccount.setCustId(account.getCustId());
+        existingAccount.setBalance(account.getBalance());
+        existingAccount.setDateOfOpening(account.getDateOfOpening());
+        existingAccount.setType(account.getType());
+        existingAccount.setIsActive(account.getIsActive());
+
+        // save existingAccount to the database
+        accountRepository.save(existingAccount);
+
+        return existingAccount;
     }
 
 

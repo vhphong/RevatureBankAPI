@@ -60,6 +60,7 @@ public class AccountRepositoryTest {
     }
 
 
+    // test of repository's listAccountById
     @Test
     public void testListAccountById() throws ParseException {
         String sDate1 = "11/25/2021";
@@ -67,6 +68,40 @@ public class AccountRepositoryTest {
         Account account1 = new Account(1, 123.45, date1, "debit", true);
 
         Account savedAccount = accountRepository.save(account1);
+
         assertThat(savedAccount.getAccountId()).isPositive();
+    }
+
+
+    // test of repository's modifyAccount
+    @Test
+    public void testModifyAccount() throws ParseException {
+        String sDate1 = "11/25/2021";
+        Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(sDate1);
+        Account account1 = new Account(1, 123.45, date1, "debit", true);
+
+        Account savedAccount = accountRepository.save(account1);
+
+        Account existingAccount = testEntityManager.find(Account.class, savedAccount.getAccountId());
+
+        Long newCustId = Long.valueOf(2);
+        double newBalance = 789.01;
+        String sNewDate = "12/18/2020";
+        Date newDate = new SimpleDateFormat("MM/dd/yyyy").parse(sNewDate);
+        String newType = "saving";
+        boolean newIsActive = false;
+
+        // save existingAccount to the database
+        existingAccount.setCustId(newCustId);
+        existingAccount.setBalance(newBalance);
+        existingAccount.setDateOfOpening(newDate);
+        existingAccount.setType(newType);
+        existingAccount.setIsActive(newIsActive);
+
+        assertThat(existingAccount.getCustId()).isEqualTo(newCustId);
+        assertThat(existingAccount.getBalance()).isEqualTo(newBalance);
+        assertThat(existingAccount.getDateOfOpening()).isEqualTo(newDate);
+        assertThat(existingAccount.getType()).isEqualTo(newType);
+        assertThat(existingAccount.getIsActive()).isEqualTo(newIsActive);
     }
 }
