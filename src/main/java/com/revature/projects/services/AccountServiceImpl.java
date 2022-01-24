@@ -76,6 +76,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public boolean removeAccount(long id) {
-        return false;
+        try {
+            accountRepository.deleteById(id);
+
+            return true;
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+
+            return false;
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -74,6 +74,22 @@ public class AccountRepositoryTest {
     }
 
 
+    // test of repository's listAccountById not existing
+    @Test
+    public void testListAccountByIdNotExisting() throws ParseException {
+        String sDate1 = "11/25/2021";
+        Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(sDate1);
+        Account account1 = new Account(1, 123.45, date1, "debit", true);
+
+        Account savedAccount = accountRepository.save(account1);
+
+        Long fakeAcctId = Long.valueOf(999999999);
+        boolean isExisting = accountRepository.existsById(fakeAcctId);
+
+        assertFalse(isExisting);
+    }
+
+
     // test of repository's modifyAccount
     @Test
     @Rollback(value = false)
@@ -105,5 +121,27 @@ public class AccountRepositoryTest {
         assertThat(existingAccount.getDateOfOpening()).isEqualTo(newDate);
         assertThat(existingAccount.getType()).isEqualTo(newType);
         assertThat(existingAccount.getIsActive()).isEqualTo(newIsActive);
+    }
+
+
+    // test of repository's removeAccount
+    @Test
+    @Rollback(value = false)
+    public void testRemoveAccount() throws ParseException {
+        String sDate1 = "11/25/2021";
+        Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(sDate1);
+        Account account1 = new Account(1, 123.45, date1, "debit", true);
+
+        Account savedAccount = accountRepository.save(account1);
+        Long acctId = savedAccount.getAccountId();
+
+        boolean isExistedBeforeRemove = accountRepository.findById(acctId).isPresent();
+
+        accountRepository.deleteById(acctId);
+
+        boolean isExistedAfterRemove = accountRepository.findById(acctId).isPresent();
+
+        assertTrue(isExistedBeforeRemove);
+        assertFalse(isExistedAfterRemove);
     }
 }
