@@ -70,6 +70,7 @@ public class AccountController {
 
 
     // build delete account REST API
+    // http://localhost:8080/RevBankAPI/v2/accounts/21
     @DeleteMapping("/accounts/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable("id") long acctId) {
         if (acctId > 0) {
