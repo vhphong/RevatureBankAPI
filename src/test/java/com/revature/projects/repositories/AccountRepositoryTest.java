@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,6 +76,7 @@ public class AccountRepositoryTest {
 
     // test of repository's modifyAccount
     @Test
+    @Rollback(value = false)
     public void testModifyAccount() throws ParseException {
         String sDate1 = "11/25/2021";
         Date date1 = new SimpleDateFormat("MM/dd/yyyy").parse(sDate1);
