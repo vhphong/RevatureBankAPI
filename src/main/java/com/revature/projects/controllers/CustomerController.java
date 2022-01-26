@@ -68,7 +68,7 @@ public class CustomerController {
     // get a customer by customer name
     // http://localhost:8080/RevBankAPI/v2/customers/name/Phong
     @GetMapping("customers/name/{cname}")
-    public List<Customer> getCustomerById(@PathVariable("cname") String custName) {
+    public List<Customer> getCustomerByName(@PathVariable("cname") String custName) {
         return customerService.listAllCustomersByName(custName);
     }
 
