@@ -11,109 +11,103 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;        // patterned: tablenameId
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "customer_name")
+    private String customerName;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "customer_email")
+    private String customerEmail;
 
-    @Column(name = "dob")
-    private Date dob;
+    @Column(name = "customer_dob")
+    private Date customerDob;
 
-    @Column(name = "mobile")
-    private String mobile;
+    @Column(name = "customer_mobile")
+    private String customerMobile;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "customer_address")
+    private String customerAddress;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "customer_password")
+    private String customerPassword;
 
     public Customer() {
         super();
     }
 
-    public Customer(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+    public Customer(String customerName, String customerEmail, Date customerDob, String customerMobile, String customerAddress, String customerPassword) {
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerDob = customerDob;
+        this.customerMobile = customerMobile;
+        this.customerAddress = customerAddress;
+        this.customerPassword = customerPassword;
     }
 
-    public Customer(String name, String email, Date dob, String mobile, String address, String password) {
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
-        this.mobile = mobile;
-        this.address = address;
-        this.password = password;
-    }
-
-    public Long getId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setId(Long id) {
-        this.customerId = id;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public Date getDob() {
-        return dob;
+    public Date getCustomerDob() {
+        return customerDob;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setCustomerDob(Date customerDob) {
+        this.customerDob = customerDob;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getCustomerMobile() {
+        return customerMobile;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setCustomerMobile(String customerMobile) {
+        this.customerMobile = customerMobile;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCustomerPassword() {
+        return customerPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
                 "customerId=" + customerId +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dob=" + dob +
-                ", mobile='" + mobile + '\'' +
-                ", address='" + address + '\'' +
-                ", password='" + password + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", customerDob=" + customerDob +
+                ", customerMobile='" + customerMobile + '\'' +
+                ", customerAddress='" + customerAddress + '\'' +
+                ", customerPassword='" + customerPassword + '\'' +
                 '}';
     }
 }

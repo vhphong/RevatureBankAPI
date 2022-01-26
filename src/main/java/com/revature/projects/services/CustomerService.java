@@ -12,6 +12,8 @@ public interface CustomerService {
 
     Customer listCustomerById(long id);
 
+    List<Customer> listAllCustomersByName(String name);
+
     Customer modifyCustomer(Customer customer, long id);
 
     boolean removeCustomer(long id);

@@ -12,9 +12,9 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         super();
         this.customerRepository = customerRepository;
@@ -26,12 +26,10 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.save(customer);
     }
 
-
     @Override
     public List<Customer> listAllCustomers() {
         return customerRepository.findAll();
     }
-
 
     @Override
     public Customer listCustomerById(long id) {
@@ -48,25 +46,31 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> listAllCustomersByName(String name) {
+        List<Customer> customer = customerRepository.findCustomerByName(name);
+
+        return customer;
+    }
+
+    @Override
     public Customer modifyCustomer(Customer customer, long id) {
 
         // check whether customer with given id is existing in the database or not
         Customer existingCustomer = customerRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Customer with Id: " + id + " was not found."));
 
-        existingCustomer.setName(customer.getName());
-        existingCustomer.setAddress(customer.getAddress());
-        existingCustomer.setDob(customer.getDob());
-        existingCustomer.setMobile(customer.getMobile());
-        existingCustomer.setEmail(customer.getEmail());
-        existingCustomer.setPassword(customer.getPassword());
+        existingCustomer.setCustomerName(customer.getCustomerName());
+        existingCustomer.setCustomerAddress(customer.getCustomerAddress());
+        existingCustomer.setCustomerDob(customer.getCustomerDob());
+        existingCustomer.setCustomerMobile(customer.getCustomerMobile());
+        existingCustomer.setCustomerEmail(customer.getCustomerEmail());
+        existingCustomer.setCustomerPassword(customer.getCustomerPassword());
 
         // save existingCustomer to the DB
         customerRepository.save(existingCustomer);
 
         return existingCustomer;
     }
-
 
     @Override
     public boolean removeCustomer(long id) {
