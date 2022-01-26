@@ -33,6 +33,12 @@ public class Customer {
         super();
     }
 
+    public Customer(String customerName, String customerEmail, String customerPassword) {
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerPassword = customerPassword;
+    }
+
     public Customer(String customerName, String customerEmail, Date customerDob, String customerMobile, String customerAddress, String customerPassword) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
