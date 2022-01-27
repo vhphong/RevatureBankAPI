@@ -43,8 +43,9 @@ public class CustomerController {
         if (customer != null) {
             return new ResponseEntity<Customer>(customerService.insertCustomer(customer), HttpStatus.CREATED);
         } else {
-//            throw new BadRequestException("Request body does not contain customer data");
-            return null;
+            // throw new BadRequestException("Request body does not contain customer data");
+             return null;
+//            return ResponseEntity.noContent().build();
         }
     }
 
@@ -81,7 +82,7 @@ public class CustomerController {
     }
 
 
-    // build delete customer REST API
+    // delete a customer
     @DeleteMapping("/customers/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") long cId) {
         if (cId > 0) {
@@ -95,5 +96,14 @@ public class CustomerController {
         } else {
             return new ResponseEntity<String>("Customer id: " + cId + " is invalid.", HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    // greeting a customer
+    @GetMapping("/greeting/{name}")
+    public @ResponseBody
+    String greetingCustomer(@PathVariable("name") String customerName) {
+        return "Hello, " + customerName;
+//        return  "Hello";
     }
 }
