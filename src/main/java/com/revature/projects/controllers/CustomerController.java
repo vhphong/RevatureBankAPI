@@ -15,7 +15,7 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
     private CustomerService customerService;
@@ -44,7 +44,7 @@ public class CustomerController {
             return new ResponseEntity<Customer>(customerService.insertCustomer(customer), HttpStatus.CREATED);
         } else {
             // throw new BadRequestException("Request body does not contain customer data");
-             return null;
+            return null;
 //            return ResponseEntity.noContent().build();
         }
     }
@@ -71,6 +71,15 @@ public class CustomerController {
     @GetMapping("customers/name/{cname}")
     public List<Customer> getCustomerByName(@PathVariable("cname") String custName) {
         return customerService.listAllCustomersByName(custName);
+    }
+
+
+    // get a customer by customer name and email
+    // http://localhost:8080/RevBankAPI/v2/customers/name/Phong/email/phong@email.com
+    @GetMapping("customers/name/{cname}/email/{cemail}")
+    public List<Customer> getCustomerByNameAndEmail(@PathVariable("cname") String custName,
+                                                    @PathVariable("cemail") String custEmail) {
+        return customerService.retrieveCustomerByNameAndEmail(custName, custEmail);
     }
 
 

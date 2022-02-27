@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         super();
@@ -53,18 +54,48 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> retrieveCustomerByNameAndEmail(String name, String email) {
+        List<Customer> retCustomer = customerRepository.findCustomerByNameAndEmail(name, email);
+
+        return retCustomer;
+    }
+
+    @Override
     public Customer modifyCustomer(Customer customer, long id) {
 
         // check whether customer with given id is existing in the database or not
         Customer existingCustomer = customerRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Customer with Id: " + id + " was not found."));
 
-        existingCustomer.setCustomerName(customer.getCustomerName());
-        existingCustomer.setCustomerAddress(customer.getCustomerAddress());
-        existingCustomer.setCustomerDob(customer.getCustomerDob());
-        existingCustomer.setCustomerMobile(customer.getCustomerMobile());
-        existingCustomer.setCustomerEmail(customer.getCustomerEmail());
-        existingCustomer.setCustomerPassword(customer.getCustomerPassword());
+        if (Objects.nonNull(customer.getCustomerName()) &&
+                !"".equalsIgnoreCase(customer.getCustomerName())) {
+            existingCustomer.setCustomerName(customer.getCustomerName());
+        }
+
+        if (Objects.nonNull(customer.getCustomerAddress()) &&
+                !"".equalsIgnoreCase(customer.getCustomerAddress())) {
+            existingCustomer.setCustomerAddress(customer.getCustomerAddress());
+        }
+
+        if (Objects.nonNull(customer.getCustomerDob()) &&
+                !"".equalsIgnoreCase(customer.getCustomerDob().toString())) {
+            existingCustomer.setCustomerDob(customer.getCustomerDob());
+        }
+
+        if (Objects.nonNull(customer.getCustomerMobile()) &&
+                !"".equalsIgnoreCase(customer.getCustomerMobile())) {
+            existingCustomer.setCustomerMobile(customer.getCustomerMobile());
+        }
+
+        if (Objects.nonNull(customer.getCustomerEmail()) &&
+                !"".equalsIgnoreCase(customer.getCustomerEmail())) {
+            existingCustomer.setCustomerEmail(customer.getCustomerEmail());
+        }
+
+        if (Objects.nonNull(customer.getCustomerPassword()) &&
+                !"".equalsIgnoreCase(customer.getCustomerPassword())) {
+            existingCustomer.setCustomerPassword(customer.getCustomerPassword());
+        }
 
         // save existingCustomer to the DB
         customerRepository.save(existingCustomer);
