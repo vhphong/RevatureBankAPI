@@ -1,12 +1,14 @@
 package com.revature.projects.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.projects.models.Customer;
 import com.revature.projects.services.CustomerService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,7 +26,7 @@ public class CustomerControllerTest {
     private CustomerService customerService;
 
     @MockBean
-    private  CustomerController customerController;
+    private CustomerController customerController;
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,5 +45,23 @@ public class CustomerControllerTest {
         assertEquals(200, status);
     }
 
+    @Test
+    public void saveCustomer() throws Exception {
+        when(customerService.insertCustomer(ArgumentMatchers.any())).thenReturn(new Customer());
 
+        Customer newTestCustomer = new Customer("test name", "testemail@email.com", "testpassword");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String customerJson = objectMapper.writeValueAsString(newTestCustomer);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/RevBankAPI/v2/customers")
+                                                                             .contentType(MediaType.APPLICATION_JSON)
+                                                                             .content(customerJson);
+
+        ResultActions perform = mockMvc.perform(requestBuilder);
+        MvcResult mvcResult = perform.andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        int status = response.getStatus();
+
+        assertEquals(200, status);
+    }
 }
