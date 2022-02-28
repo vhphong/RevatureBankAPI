@@ -115,4 +115,13 @@ public class CustomerController {
         return "Hello, " + customerName;
 //        return  "Hello";
     }
+
+
+    // welcome a customer
+    @GetMapping("/welcome")
+    public ResponseEntity<String> welcomeCustomer() {
+        String welcomeMessage = customerService.welcomeCustomer();
+        return new ResponseEntity<String>(welcomeMessage, HttpStatus.OK);
+    }
+
 }
