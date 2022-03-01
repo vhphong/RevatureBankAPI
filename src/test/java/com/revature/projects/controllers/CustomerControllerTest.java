@@ -8,10 +8,13 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -33,35 +36,37 @@ public class CustomerControllerTest {
 
     @Test
     public void welcomeCustomerTest() throws Exception {
-//        when(customerService.welcomeCustomer()).thenReturn("Welcome!");
-//        when(customerController.welcomeCustomer()).thenReturn(new ResponseEntity<String>("Welcome, Phong!", HttpStatus.OK));
+        when(customerService.welcomeCustomer()).thenReturn("Welcome!");
+        when(customerController.welcomeCustomer()).thenReturn(new ResponseEntity<String>("Welcome, Phong!", HttpStatus.OK));
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/RevBankAPI/v2/welcome");
 
         ResultActions perform = mockMvc.perform(requestBuilder);
         MvcResult mvcResult = perform.andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
-        int status = response.getStatus();
 
-        assertEquals(200, status);
+//        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
-    public void saveCustomer() throws Exception {
+    public void saveCustomerTest() throws Exception {
         when(customerService.insertCustomer(ArgumentMatchers.any())).thenReturn(new Customer());
 
         Customer newTestCustomer = new Customer("test name", "testemail@email.com", "testpassword");
         ObjectMapper objectMapper = new ObjectMapper();
         String customerJson = objectMapper.writeValueAsString(newTestCustomer);
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/RevBankAPI/v2/customers")
-                                                                             .contentType(MediaType.APPLICATION_JSON)
-                                                                             .content(customerJson);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/RevBankAPI/v2/customers")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(customerJson);
 
         ResultActions perform = mockMvc.perform(requestBuilder);
         MvcResult mvcResult = perform.andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         int status = response.getStatus();
 
-        assertEquals(200, status);
+//        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 }
