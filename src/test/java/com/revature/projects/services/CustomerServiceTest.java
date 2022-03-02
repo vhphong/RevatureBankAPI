@@ -7,12 +7,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +36,7 @@ public class CustomerServiceTest<customerService> {
         customerService = new CustomerService() {
             @Override
             public Customer insertCustomer(Customer customer) {
-                return null;
+                return customerRepository.save(customer);
             }
 
             @Override
@@ -66,7 +68,8 @@ public class CustomerServiceTest<customerService> {
             public boolean removeCustomer(long id) {
                 customerRepository.deleteById(id);
 
-                return true;            }
+                return true;
+            }
 
             @Override
             public String welcomeCustomer() {
@@ -81,8 +84,21 @@ public class CustomerServiceTest<customerService> {
     }
 
     @Test
-    @Disabled
-    void insertCustomer() {
+    void insertCustomerTest() {
+        // given
+        Customer customer = new Customer("Test Name", "testemail@email.com", "123");
+
+        // when
+        customerService.insertCustomer(customer);
+
+        // then
+        ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
+
+        verify(customerRepository).save(customerArgumentCaptor.capture());
+
+        Customer capturedCustomer = customerArgumentCaptor.getValue();
+
+        assertThat(capturedCustomer).isEqualTo(customer);
     }
 
     @Test
@@ -95,7 +111,7 @@ public class CustomerServiceTest<customerService> {
 
     @Test
     @Disabled
-    void listCustomerById() {
+    void listCustomerByIdTest() {
     }
 
     @Test
