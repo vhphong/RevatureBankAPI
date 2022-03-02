@@ -64,8 +64,9 @@ public class CustomerServiceTest<customerService> {
 
             @Override
             public boolean removeCustomer(long id) {
-                return false;
-            }
+                customerRepository.deleteById(id);
+
+                return true;            }
 
             @Override
             public String welcomeCustomer() {
@@ -113,8 +114,11 @@ public class CustomerServiceTest<customerService> {
     }
 
     @Test
-    @Disabled
-    void removeCustomer() {
+    void removeCustomerTest() {
+        // when
+        customerService.removeCustomer(1);
+        // then
+        verify(customerRepository).deleteById((Long.valueOf(1)));
     }
 
     @Test
