@@ -118,7 +118,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String welcomeCustomer() {
-        return "Welcome, Phong!";
+        // return "Welcome, Phong!";
+        return customerRepository.greetingCustomer();
     }
 
 }

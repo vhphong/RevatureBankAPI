@@ -18,7 +18,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerServiceTest<customerService> {
+public class CustomerServiceTest {
 
     @Mock
     private CustomerRepository customerRepository;
@@ -73,7 +73,7 @@ public class CustomerServiceTest<customerService> {
 
             @Override
             public String welcomeCustomer() {
-                return null;
+                return customerRepository.greetingCustomer();
             }
         };
     }
@@ -138,7 +138,10 @@ public class CustomerServiceTest<customerService> {
     }
 
     @Test
-    @Disabled
-    void welcomeCustomer() {
+    void welcomeCustomerTest() {
+        // when
+        customerService.welcomeCustomer();
+        // then
+        verify(customerRepository).greetingCustomer();
     }
 }

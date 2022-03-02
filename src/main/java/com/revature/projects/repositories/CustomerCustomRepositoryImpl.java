@@ -34,4 +34,10 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
 
         return query.getResultList();
     }
+
+    @Override
+    public String greetingCustomer() {
+
+        return "Welcome, Phong!";
+    }
 }
