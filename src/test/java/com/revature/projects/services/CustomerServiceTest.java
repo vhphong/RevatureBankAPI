@@ -105,6 +105,7 @@ public class CustomerServiceTest {
     void listAllCustomersTest() {
         // when
         customerService.listAllCustomers();
+
         // then
         verify(customerRepository).findAll();
     }
@@ -133,6 +134,7 @@ public class CustomerServiceTest {
     void removeCustomerTest() {
         // when
         customerService.removeCustomer(1);
+
         // then
         verify(customerRepository).deleteById(Long.valueOf(1));
     }
@@ -141,6 +143,7 @@ public class CustomerServiceTest {
     void welcomeCustomerTest() {
         // when
         customerService.welcomeCustomer();
+
         // then
         verify(customerRepository).greetingCustomer();
     }
