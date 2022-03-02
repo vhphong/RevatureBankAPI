@@ -134,7 +134,7 @@ public class CustomerServiceTest {
         // when
         customerService.removeCustomer(1);
         // then
-        verify(customerRepository).deleteById((Long.valueOf(1)));
+        verify(customerRepository).deleteById(Long.valueOf(1));
     }
 
     @Test
