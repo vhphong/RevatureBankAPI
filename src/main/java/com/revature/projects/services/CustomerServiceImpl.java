@@ -126,5 +126,4 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean checkEmailIfTaken(String email) {
         return customerRepository.checkExistedEmail(email);
     }
-
 }

@@ -152,4 +152,13 @@ public class CustomerServiceTest {
         // then
         verify(customerRepository).greetingCustomer();
     }
+
+    @Test
+    void checkEmailIfTaken() {
+        // when
+        customerService.checkEmailIfTaken("test_email@email.com");
+
+        // then
+        verify(customerRepository).checkExistedEmail("test_email@email.com");
+    }
 }
