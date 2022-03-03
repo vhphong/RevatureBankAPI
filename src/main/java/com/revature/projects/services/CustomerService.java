@@ -22,7 +22,5 @@ public interface CustomerService {
 
     String welcomeCustomer();
 
-    default Boolean checkEmailIfTaken(String email) {
-        return null;
-    }
+    boolean checkEmailIfTaken(String email) ;
 }

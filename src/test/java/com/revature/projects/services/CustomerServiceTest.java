@@ -77,8 +77,8 @@ public class CustomerServiceTest {
             }
 
             @Override
-            public Boolean checkEmailIfTaken(String email) {
-                return CustomerService.super.checkEmailIfTaken(email);
+            public boolean checkEmailIfTaken(String email) {
+                return customerRepository.checkExistedEmail(email);
             }
         };
     }

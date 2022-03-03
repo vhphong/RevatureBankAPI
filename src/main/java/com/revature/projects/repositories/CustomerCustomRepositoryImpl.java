@@ -51,9 +51,9 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
 
         // query.setParameter(1, email);
 
-        int data = query.getResultList().size();
+        int dataLen = query.getResultList().size();
 
-        if (data == 0) {
+        if (dataLen == 0) {
             return false;
         } else {
             return true;

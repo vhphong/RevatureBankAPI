@@ -123,7 +123,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Boolean checkEmailIfTaken(String email) {
+    public boolean checkEmailIfTaken(String email) {
         return customerRepository.checkExistedEmail(email);
     }
 

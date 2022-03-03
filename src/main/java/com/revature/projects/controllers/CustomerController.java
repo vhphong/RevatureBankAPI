@@ -113,7 +113,7 @@ public class CustomerController {
     public @ResponseBody
     String greetingCustomer(@PathVariable("name") String customerName) {
         return "Hello, " + customerName;
-        // return  "Hello";
+        // return "Hello";
     }
 
 
@@ -130,5 +130,4 @@ public class CustomerController {
     public Boolean checkEmailIsTaken(@PathVariable("emailparam") String email) {
         return customerService.checkEmailIfTaken(email);
     }
-
 }
