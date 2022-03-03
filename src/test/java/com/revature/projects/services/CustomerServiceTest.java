@@ -154,7 +154,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void checkEmailIfTaken() {
+    void checkEmailIfTakenTest() {
         // when
         customerService.checkEmailIfTaken("test_email@email.com");
 
