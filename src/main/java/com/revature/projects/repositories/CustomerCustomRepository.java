@@ -12,4 +12,6 @@ public interface CustomerCustomRepository {
 
     String greetingCustomer();
 
+    Boolean checkExistedEmail(String email);
+
 }

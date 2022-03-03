@@ -2,6 +2,7 @@ package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -39,5 +40,23 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
     public String greetingCustomer() {
 
         return "Welcome, Phong!";
+    }
+
+    @Override
+    public Boolean checkExistedEmail(String email) {
+
+        String sql = "SELECT c from Customer c WHERE c.customerEmail=:email";
+        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
+        query.setParameter("email", email);
+
+        // query.setParameter(1, email);
+
+        int data = query.getResultList().size();
+
+        if (data == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

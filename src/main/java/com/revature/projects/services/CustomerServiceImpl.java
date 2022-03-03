@@ -122,4 +122,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.greetingCustomer();
     }
 
+    @Override
+    public Boolean checkEmailIfTaken(String email) {
+        return customerRepository.checkExistedEmail(email);
+    }
+
 }

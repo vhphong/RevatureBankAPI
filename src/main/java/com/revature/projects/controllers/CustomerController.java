@@ -45,7 +45,7 @@ public class CustomerController {
         } else {
             // throw new BadRequestException("Request body does not contain customer data");
             return null;
-//            return ResponseEntity.noContent().build();
+            // return ResponseEntity.noContent().build();
         }
     }
 
@@ -113,7 +113,7 @@ public class CustomerController {
     public @ResponseBody
     String greetingCustomer(@PathVariable("name") String customerName) {
         return "Hello, " + customerName;
-//        return  "Hello";
+        // return  "Hello";
     }
 
 
@@ -122,6 +122,13 @@ public class CustomerController {
     public ResponseEntity<String> welcomeCustomer() {
         String welcomeMessage = customerService.welcomeCustomer();
         return new ResponseEntity<String>(welcomeMessage, HttpStatus.OK);
+    }
+
+
+    // check an email if it is taken
+    @GetMapping("/existed_email/{emailparam}")
+    public Boolean checkEmailIsTaken(@PathVariable("emailparam") String email) {
+        return customerService.checkEmailIfTaken(email);
     }
 
 }

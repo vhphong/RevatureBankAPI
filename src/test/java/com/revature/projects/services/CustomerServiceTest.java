@@ -75,6 +75,11 @@ public class CustomerServiceTest {
             public String welcomeCustomer() {
                 return customerRepository.greetingCustomer();
             }
+
+            @Override
+            public Boolean checkEmailIfTaken(String email) {
+                return CustomerService.super.checkEmailIfTaken(email);
+            }
         };
     }
 

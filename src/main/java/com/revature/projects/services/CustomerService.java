@@ -21,4 +21,8 @@ public interface CustomerService {
     boolean removeCustomer(long id);
 
     String welcomeCustomer();
+
+    default Boolean checkEmailIfTaken(String email) {
+        return null;
+    }
 }
