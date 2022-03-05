@@ -1,6 +1,7 @@
 package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -31,13 +32,24 @@ public class CustomerCustomRepositoryTest {
         assertFalse(isExisted);
     }
 
+
+    // test of repository's findCustomerByNameAndEmail
     @Test
     void findCustomerByNameAndEmailTest() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        customerRepository.save(customer1);
+
+        boolean isExisted = customerRepository.findCustomerByNameAndEmail("test name 1", "testemail1@rb.com").isEmpty();
+
+        assertFalse(isExisted);
     }
 
+
     @Test
+    @Disabled
     void greetingCustomerTest() {
     }
+
 
     @Test
     void checkExistedEmailTest() {
