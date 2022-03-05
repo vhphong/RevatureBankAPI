@@ -53,5 +53,11 @@ public class CustomerCustomRepositoryTest {
 
     @Test
     void checkExistedEmailTest() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        customerRepository.save(customer1);
+
+        boolean isExisted = customerRepository.checkExistedEmail("testemail1@rb.com").booleanValue();
+
+        assertTrue(isExisted);
     }
 }
