@@ -74,18 +74,6 @@ public class CustomerRepositoryTest {
     }
 
 
-    // test of repository's listAllCustomersByName
-    @Test
-    public void listAllCustomersByNameTest() {
-        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
-        Customer savedCustomer = customerRepository.save(customer1);
-
-        boolean isExisted = customerRepository.findCustomerByName(customer1.getCustomerName()).isEmpty();
-
-        assertFalse(isExisted);
-    }
-
-
     // test of repository's modifyCustomer
     @Test
     @Rollback(value = false)
@@ -130,4 +118,7 @@ public class CustomerRepositoryTest {
         assertTrue(isExistedBeforeRemove);
         assertFalse(isExistedAfterRemove);
     }
+
+
+    // test of repository's
 }

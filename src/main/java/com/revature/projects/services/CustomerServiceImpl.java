@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer insertCustomer(Customer customer) {
+        customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
         return customerRepository.save(customer);
     }
 
@@ -124,6 +125,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean checkEmailIfTaken(String email) {
-        return customerRepository.checkExistedEmail(email);
+        return customerRepository.checkExistedEmail(email.toLowerCase());
     }
 }
