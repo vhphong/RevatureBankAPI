@@ -40,8 +40,7 @@ public class CustomerRepositoryTest {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer customer2 = new Customer("test name 2", "testemail2@rb.com", "456");
 
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
+        customerRepository.saveAll(List.of(customer1, customer2));
 
         List<Customer> customers = customerRepository.findAll();
 
@@ -76,7 +75,7 @@ public class CustomerRepositoryTest {
 
     // test of repository's modifyCustomer
     @Test
-    @Rollback(value = false)
+    @Rollback(value = true)
     public void modifyCustomerTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer = customerRepository.save(customer1);

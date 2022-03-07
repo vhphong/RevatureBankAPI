@@ -51,6 +51,7 @@ public class CustomerCustomRepositoryTest {
     }
 
 
+    // test of an email is existed
     @Test
     void checkExistedEmailTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
