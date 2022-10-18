@@ -87,7 +87,6 @@ public class CustomerControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonReq = objectMapper.writeValueAsString(customer);
 
-
         RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonReq);

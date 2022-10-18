@@ -2,7 +2,6 @@ package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
