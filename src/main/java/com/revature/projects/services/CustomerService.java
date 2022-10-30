@@ -14,6 +14,8 @@ public interface CustomerService {
 
     List<Customer> listAllCustomersByName(String name);
 
+    List<Customer> listAllCustomersByEmail(String email);
+
     List<Customer> retrieveCustomerByNameAndEmail(String name, String email);
 
     Customer modifyCustomer(Customer customer, long id);

@@ -51,16 +51,16 @@ public class CustomerController {
 
 
     // get all customers
-    // http://localhost:8080/RevBankAPI/v2/customers
-    @GetMapping("customers")
+    // http://localhost:8080/RevBankAPI/v2/customers/all
+    @GetMapping("customers/all")
     public List<Customer> getAllCustomers() {
         return customerService.listAllCustomers();
     }
 
 
     // get a customer by customer Id
-    // http://localhost:8080/RevBankAPI/v2/customers/1
-    @GetMapping("/customers/{id}")
+    // http://localhost:8080/RevBankAPI/v2/customers/id/1
+    @GetMapping("/customers/id/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") long cId) {
         return new ResponseEntity<Customer>(customerService.listCustomerById(cId), HttpStatus.OK);
     }
@@ -71,6 +71,14 @@ public class CustomerController {
     @GetMapping("customers/name/{cname}")
     public List<Customer> getCustomerByName(@PathVariable("cname") String custName) {
         return customerService.listAllCustomersByName(custName);
+    }
+
+
+    // get a customer by customer email
+    // http://localhost:8080/RevBankAPI/v2/customers/email/phong@revbank.com
+    @GetMapping("customers/email/{cemail}")
+    public List<Customer> getCustomerByEmail(@PathVariable("cemail") String ctmrEmail) {
+        return customerService.listAllCustomersByEmail(ctmrEmail);
     }
 
 

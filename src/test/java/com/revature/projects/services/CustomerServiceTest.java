@@ -55,6 +55,11 @@ public class CustomerServiceTest {
             }
 
             @Override
+            public List<Customer> listAllCustomersByEmail(String email) {
+                return null;
+            }
+
+            @Override
             public List<Customer> retrieveCustomerByNameAndEmail(String name, String email) {
                 return null;
             }

@@ -14,37 +14,42 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
 
 
     @Override
-    public List<Customer> findCustomerByName(String name) {
-
-        String sql = "SELECT c from Customer c WHERE c.customerName=:name";
+    public List<Customer> findCustomerByName(String nameInput) {
+        String sql = "SELECT c FROM Customer c WHERE c.customerName=:name";
         final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
-        query.setParameter("name", name);
+        query.setParameter("name", nameInput);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Customer> findCustomerByEmail(String emailInput) {
+        String sql = "SELECT c FROM Customer c WHERE c.customerEmail = :email";
+        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
+        query.setParameter("email", emailInput);
 
         return query.getResultList();
     }
 
 
     @Override
-    public List<Customer> findCustomerByNameAndEmail(String name, String email) {
-
-        String sql = "SELECT c from Customer c WHERE c.customerName=:name AND c.customerEmail=:email";
+    public List<Customer> findCustomerByNameAndEmail(String nameInput, String emailInput) {
+        String sql = "SELECT c FROM Customer c WHERE c.customerName = :name AND c.customerEmail = :email";
         final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
-        query.setParameter("name", name);
-        query.setParameter("email", email);
+        query.setParameter("name", nameInput);
+        query.setParameter("email", emailInput);
 
         return query.getResultList();
     }
 
     @Override
     public String greetingCustomer() {
-
         return "Welcome, Phong!";
     }
 
     @Override
     public Boolean checkExistedEmail(String email) {
-
-        String sql = "SELECT c from Customer c WHERE c.customerEmail=:email";
+        String sql = "SELECT c FROM Customer c WHERE c.customerEmail = :email";
         final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
         query.setParameter("email", email);
 
