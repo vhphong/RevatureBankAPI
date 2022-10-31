@@ -20,8 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee insertEmployee(Employee employee) {
-        employee.setEmployeeName(employee.getEmployeeName().toLowerCase());
-        employee.setActiveStatus(employee.getActiveStatus());
+//        employee.setEmployeeName(employee.getEmployeeName().toLowerCase());
+//        employee.setActiveStatus(employee.getActiveStatus());
 
         return employeeRepository.save(employee);
     }
