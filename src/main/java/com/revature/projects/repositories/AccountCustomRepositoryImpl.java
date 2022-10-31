@@ -33,7 +33,8 @@ public class AccountCustomRepositoryImpl implements AccountCustomRepository {
 
     @Override
     public List<Account> findAccountByCustId(long customerIdInput) {
-        String sql = "SELECT a FROM Account a WHERE a.custId = :customerId";
+//        String sql = "SELECT a FROM Account a WHERE a.custId = :customerId";
+        String sql = "SELECT a FROM Account a WHERE a.custId IN (SELECT c.customerId FROM Customer c WHERE c.customerId = :customerId)";
         final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
         query.setParameter("customerId", customerIdInput);
 

@@ -1,5 +1,6 @@
 package com.revature.projects.services;
 
+import com.revature.projects.exceptions.BadRequestException;
 import com.revature.projects.models.Employee;
 import com.revature.projects.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee insertEmployee(Employee employee) {
-//        employee.setEmployeeName(employee.getEmployeeName().toLowerCase());
-//        employee.setActiveStatus(employee.getActiveStatus());
-
-        return employeeRepository.save(employee);
+        if (employee != null) {
+            return employeeRepository.save(employee);
+        } else {
+            throw new BadRequestException("Employee input is null!");
+        }
     }
 
     @Override
