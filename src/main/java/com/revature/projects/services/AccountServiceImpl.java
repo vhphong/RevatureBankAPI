@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> listAllAccountsBalanceGreaterThan(double minBalance) {
-        return accountRepository.findAccountGreaterThan(minBalance);
+        return accountRepository.findAccountBalanceGreaterThan(minBalance);
     }
 
     @Override
@@ -52,6 +52,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> listAllAccountsByCustomerId(long customerIdInput) {
         return accountRepository.findAccountByCustId(customerIdInput);
+    }
+
+    @Override
+    public List<Account> listAllAccountsByAccountActiveStatus(int accountStatus) {
+        return accountRepository.findAccountByAccountActiveStatus(accountStatus);
     }
 
 

@@ -35,12 +35,12 @@ public class AccountController {
             "balance": 0.00,
             "dateOfOpening": "2020-11-22",
             "type": "debit",
-            "isActive": true
+            "accountActiveStatus": true
         }
 
         http://localhost:8080/RevBankAPI/v2/accounts
     */
-    @PostMapping("accounts")
+    @PostMapping("accounts/create")
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
         if (account != null) {
             return new ResponseEntity<Account>(accountService.insertAccount(account), HttpStatus.CREATED);
@@ -68,22 +68,29 @@ public class AccountController {
 
     // get accounts that have balance greater than a low limit
     @GetMapping("/accounts/balance/greater/{lowLimit}")
-    public ResponseEntity<Account> getAccountsHaveBalanceGreaterThan(@PathVariable("lowLimit") double minValue) {
-        return new ResponseEntity<Account>((Account) accountService.listAllAccountsBalanceGreaterThan(minValue), HttpStatus.OK);
+    public List<Account> getAccountsHaveBalanceGreaterThan(@PathVariable("lowLimit") double minValue) {
+        return accountService.listAllAccountsBalanceGreaterThan(minValue);
     }
 
 
     // gets accounts by account type
     @GetMapping("/accounts/type/{accountTypeInputParam}")
-    public ResponseEntity<Account> getAccountsByAccountType(@PathVariable("accountTypeInputParam") String accountType) {
-        return new ResponseEntity<Account>((Account) accountService.listAllAccountsByType(accountType), HttpStatus.OK);
+    public List<Account> getAccountsByAccountType(@PathVariable("accountTypeInputParam") String accountType) {
+        return accountService.listAllAccountsByType(accountType);
     }
 
 
     // gets all accounts by customer ID
     @GetMapping("/accounts/customerId/{customerIdParam}")
-    public ResponseEntity<Account> getAccountByCustId(@PathVariable("customerIdParam") long ctmrId) {
-        return new ResponseEntity<Account>((Account) accountService.listAllAccountsByCustomerId(ctmrId),HttpStatus.OK);
+    public List<Account> getAccountByCustId(@PathVariable("customerIdParam") long ctmrId) {
+        return accountService.listAllAccountsByCustomerId(ctmrId);
+    }
+
+
+    // get all accounts by account active status
+    @GetMapping("/accounts/account_status/{accountStatusParam}")
+    public List<Account> getAccountByAccountActiveStatus(@PathVariable("accountStatusParam") int acctStatus) {
+        return accountService.listAllAccountsByAccountActiveStatus(acctStatus);
     }
 
 

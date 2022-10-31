@@ -14,8 +14,8 @@ public class AccountCustomRepositoryImpl implements AccountCustomRepository {
 
 
     @Override
-    public List<Account> findAccountGreaterThan(double lowerLimitInput) {
-        String sql = "SELECT a FROM Account a WHERE a.balance = :lowerLimit";
+    public List<Account> findAccountBalanceGreaterThan(double lowerLimitInput) {
+        String sql = "SELECT a FROM Account a WHERE a.balance >= :lowerLimit";
         final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
         query.setParameter("lowerLimit", lowerLimitInput);
 
@@ -36,6 +36,15 @@ public class AccountCustomRepositoryImpl implements AccountCustomRepository {
         String sql = "SELECT a FROM Account a WHERE a.custId = :customerId";
         final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
         query.setParameter("customerId", customerIdInput);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Account> findAccountByAccountActiveStatus(int accountActiveStatusInput) {
+        String sql = "SELECT a FROM Account a WHERE a.accountActiveStatus = :accountStatus";
+        final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
+        query.setParameter("accountStatus", accountActiveStatusInput);
 
         return query.getResultList();
     }

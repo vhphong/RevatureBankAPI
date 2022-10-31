@@ -20,6 +20,8 @@ public interface AccountService {
 
     List<Account> listAllAccountsByCustomerId(long customerIdInput);
 
+    List<Account> listAllAccountsByAccountActiveStatus(int accountStatus);
+
     Account modifyAccount(Account account, long id);
 
     boolean removeAccount(long id);

@@ -12,7 +12,7 @@ public class Account {
     private Long accountId;     // patterned: tablenameId
 
     @Column(name = "cust_id")
-    private long custId;
+    private Long custId;
 
     @Column(name = "balance")
     private double balance;

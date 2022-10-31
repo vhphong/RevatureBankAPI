@@ -6,10 +6,12 @@ import java.util.List;
 
 public interface AccountCustomRepository {
 
-    List<Account> findAccountGreaterThan(double lowerLimit);
+    List<Account> findAccountBalanceGreaterThan(double lowerLimit);
 
     List<Account> findAccountByType(String accountTypeInput);
 
     List<Account> findAccountByCustId(long customerIdInput);
+
+    List<Account> findAccountByAccountActiveStatus(int accountActiveStatusInput);
 
 }
