@@ -2,7 +2,9 @@ package com.revature.projects.controllers;
 
 import com.revature.projects.exceptions.BadRequestException;
 import com.revature.projects.models.Account;
+import com.revature.projects.repositories.AccountRepository;
 import com.revature.projects.services.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,15 @@ import java.util.List;
 @RequestMapping("/RevBankAPI/v2/")
 public class AccountController {
 
+    @Autowired
+    private final AccountRepository accountRepository;
+
+    @Autowired
     private AccountService accountService;
 
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountRepository accountRepository) {
         super();
-        this.accountService = accountService;
+        this.accountRepository = accountRepository;
     }
 
 
@@ -53,10 +59,31 @@ public class AccountController {
 
 
     // build get account by Id REST API
-    // http://localhost:8080/RevBankAPI/v2/accounts/1
-    @GetMapping("/accounts/{id}")
+    // http://localhost:8080/RevBankAPI/v2/accounts/id/1
+    @GetMapping("/accounts/id/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable("id") long acctId) {
         return new ResponseEntity<Account>(accountService.listAccountById(acctId), HttpStatus.OK);
+    }
+
+
+    // get accounts that have balance greater than a low limit
+    @GetMapping("/accounts/balance/greater/{lowLimit}")
+    public ResponseEntity<Account> getAccountsHaveBalanceGreaterThan(@PathVariable("lowLimit") double minValue) {
+        return new ResponseEntity<Account>((Account) accountService.listAllAccountsBalanceGreaterThan(minValue), HttpStatus.OK);
+    }
+
+
+    // gets accounts by account type
+    @GetMapping("/accounts/type/{accountTypeInputParam}")
+    public ResponseEntity<Account> getAccountsByAccountType(@PathVariable("accountTypeInputParam") String accountType) {
+        return new ResponseEntity<Account>((Account) accountService.listAllAccountsByType(accountType), HttpStatus.OK);
+    }
+
+
+    // gets all accounts by customer ID
+    @GetMapping("/accounts/customerId/{customerIdParam}")
+    public ResponseEntity<Account> getAccountByCustId(@PathVariable("customerIdParam") long ctmrId) {
+        return new ResponseEntity<Account>((Account) accountService.listAllAccountsByCustomerId(ctmrId),HttpStatus.OK);
     }
 
 

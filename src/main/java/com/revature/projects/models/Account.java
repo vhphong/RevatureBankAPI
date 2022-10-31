@@ -23,19 +23,18 @@ public class Account {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "active")
-    private boolean isActive;
+    @Column(name = "account_active_status")
+    private int accountActiveStatus;
 
     public Account() {
-        super();
     }
 
-    public Account(long custId, double balance, Date dateOfOpening, String type, boolean isActive) {
+    public Account(long custId, double balance, Date dateOfOpening, String type, int accountActiveStatus) {
         this.custId = custId;
         this.balance = balance;
         this.dateOfOpening = dateOfOpening;
         this.type = type;
-        this.isActive = isActive;
+        this.accountActiveStatus = accountActiveStatus;
     }
 
     public Long getAccountId() {
@@ -78,23 +77,11 @@ public class Account {
         this.type = type;
     }
 
-    public boolean getIsActive() {
-        return isActive;
+    public int getAccountActiveStatus() {
+        return accountActiveStatus;
     }
 
-    public void setIsActive(boolean active) {
-        this.isActive = active;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accountId=" + accountId +
-                ", custId=" + custId +
-                ", balance=" + balance +
-                ", dateOfOpening=" + dateOfOpening +
-                ", type='" + type + '\'' +
-                ", isActive=" + isActive +
-                '}';
+    public void setAccountActiveStatus(int accountActiveStatus) {
+        this.accountActiveStatus = accountActiveStatus;
     }
 }

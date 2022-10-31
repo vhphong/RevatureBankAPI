@@ -39,6 +39,21 @@ public class AccountServiceImpl implements AccountService {
         return null;
     }
 
+    @Override
+    public List<Account> listAllAccountsBalanceGreaterThan(double minBalance) {
+        return accountRepository.findAccountGreaterThan(minBalance);
+    }
+
+    @Override
+    public List<Account> listAllAccountsByType(String accountTypeInput) {
+        return accountRepository.findAccountByType(accountTypeInput);
+    }
+
+    @Override
+    public List<Account> listAllAccountsByCustomerId(long customerIdInput) {
+        return accountRepository.findAccountByCustId(customerIdInput);
+    }
+
 
     @Override
     public Account listAccountById(long id) {
@@ -65,7 +80,7 @@ public class AccountServiceImpl implements AccountService {
         existingAccount.setBalance(account.getBalance());
         existingAccount.setDateOfOpening(account.getDateOfOpening());
         existingAccount.setType(account.getType());
-        existingAccount.setIsActive(account.getIsActive());
+        existingAccount.setAccountActiveStatus(account.getAccountActiveStatus());
 
         // save existingAccount to the database
         accountRepository.save(existingAccount);

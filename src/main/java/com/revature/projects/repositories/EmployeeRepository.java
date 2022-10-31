@@ -1,8 +1,8 @@
 package com.revature.projects.repositories;
 
-import com.revature.projects.models.Account;
+import com.revature.projects.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // @Repository   : no need @Repository annotation because JpaRepository already defined @Repository
-public interface AccountRepository extends JpaRepository<Account, Long>, AccountCustomRepository {
+public interface EmployeeRepository extends JpaRepository<Employee, Long>, EmployeeCustomRepository {
 }

@@ -10,9 +10,15 @@ public interface AccountService {
 
     List<Account> listAllAccounts();
 
+    Account listAccountById(long id);
+
     List<Account> listAllAccountsByName(String name);
 
-    Account listAccountById(long id);
+    List<Account> listAllAccountsBalanceGreaterThan(double minBalance);
+
+    List<Account> listAllAccountsByType(String accountTypeInput);
+
+    List<Account> listAllAccountsByCustomerId(long customerIdInput);
 
     Account modifyAccount(Account account, long id);
 

@@ -15,7 +15,7 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
 
     @Override
     public List<Customer> findCustomerByName(String nameInput) {
-        String sql = "SELECT c FROM Customer c WHERE c.customerName=:name";
+        String sql = "SELECT c FROM Customer c WHERE c.customerName = :name";
         final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
         query.setParameter("name", nameInput);
 

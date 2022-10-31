@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/RevBankAPI/v2/")
 public class CustomerController {
@@ -26,7 +27,7 @@ public class CustomerController {
     }
 
     // to create customer
-    // http://localhost:8080/RevBankAPI/v2/customers
+    // http://localhost:8080/RevBankAPI/v2/customers/create
     /*
      * Body's JSON:
        {
@@ -38,7 +39,7 @@ public class CustomerController {
             "customerPassword": "phong1"
         }
      */
-    @PostMapping("customers")
+    @PostMapping("customers/create")
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
         if (customer != null) {
             return new ResponseEntity<Customer>(customerService.insertCustomer(customer), HttpStatus.CREATED);
@@ -66,7 +67,7 @@ public class CustomerController {
     }
 
 
-    // get a customer by customer name
+    // get customers by customer name
     // http://localhost:8080/RevBankAPI/v2/customers/name/Phong
     @GetMapping("customers/name/{cname}")
     public List<Customer> getCustomerByName(@PathVariable("cname") String custName) {
