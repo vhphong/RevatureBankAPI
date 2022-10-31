@@ -12,6 +12,8 @@ public interface AccountCustomRepository {
 
     List<Account> findAccountByCustId(long customerIdInput);
 
+    List<Account> findAccountByCustomerName(String customerNameInput);
+
     List<Account> findAccountByAccountActiveStatus(int accountActiveStatusInput);
 
 }

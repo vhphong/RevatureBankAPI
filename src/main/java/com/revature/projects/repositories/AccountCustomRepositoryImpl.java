@@ -34,9 +34,18 @@ public class AccountCustomRepositoryImpl implements AccountCustomRepository {
     @Override
     public List<Account> findAccountByCustId(long customerIdInput) {
         // String sql1 = "SELECT a FROM Account a WHERE a.custId = :customerId";
-        String sql2 = "SELECT a FROM Account a WHERE a.custId IN (SELECT c.customerId FROM Customer c WHERE c.customerId = :customerId)";
+        String sql2 = "SELECT a FROM Account a WHERE a.custId IN (SELECT c.customerId FROM Customer c WHERE c.customerId = :ctmrId)";
         final TypedQuery<Account> query = entityManager.createQuery(sql2, Account.class);
-        query.setParameter("customerId", customerIdInput);
+        query.setParameter("ctmrId", customerIdInput);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Account> findAccountByCustomerName(String customerNameInput) {
+        String sql = "SELECT a FROM Account a WHERE a.custId IN (SELECT c.customerId FROM Customer c WHERE c.customerName = :ctmrName)";
+        final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
+        query.setParameter("ctmrName", customerNameInput);
 
         return query.getResultList();
     }
