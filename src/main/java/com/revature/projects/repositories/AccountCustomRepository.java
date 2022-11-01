@@ -15,6 +15,5 @@ public interface AccountCustomRepository {
     List<Account> findAccountByCustomerName(String customerNameInput);
 
     List<Account> findAccountByAccountActiveStatus(int accountActiveStatusInput);
-
-//    void freezeAccount(long accountId);
+    
 }
