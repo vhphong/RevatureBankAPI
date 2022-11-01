@@ -13,4 +13,8 @@ public interface EmployeeService {
     List<Employee> listAllEmployeesByName(String emplNameInput);
 
     List<Employee> listAllEmployeesByActiveStatus(int statusInput);
+
+    Employee enableEmployeeProfile(long employeeIdInput);
+
+    Employee disableEmployeeProfile(long employeeIdInput);
 }

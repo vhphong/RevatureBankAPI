@@ -95,7 +95,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account enableAccount(long accountId) {
-        Account retrievedAccount = accountRepository.findById(accountId).orElseThrow(() -> new ResourceNotFoundException("Account with Id: " + accountId + " was not found."));
+        Account retrievedAccount = accountRepository.findById(accountId).orElseThrow(
+                () -> new ResourceNotFoundException("Account with Id: " + accountId + " was not found."));
         retrievedAccount.setAccountActiveStatus(1);
         accountRepository.save(retrievedAccount);
 
@@ -104,7 +105,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account disableAccount(long accountId) {
-        Account retrievedAccount = accountRepository.findById(accountId).orElseThrow(() -> new ResourceNotFoundException("Account with Id: " + accountId + " was not found."));
+        Account retrievedAccount = accountRepository.findById(accountId).orElseThrow(
+                () -> new ResourceNotFoundException("Account with Id: " + accountId + " was not found."));
         retrievedAccount.setAccountActiveStatus(0);
         accountRepository.save(retrievedAccount);
 

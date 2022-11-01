@@ -71,4 +71,20 @@ public class EmployeeController {
         return employeeService.listAllEmployeesByActiveStatus(emplActiveStatus);
     }
 
+
+    // activate employee profile
+    // http://localhost:8080/RevBankAPI/v2/employees/activate/2
+    @PutMapping("employees/activate/{id}")
+    public ResponseEntity<Employee> activateEmployeeProfile(@PathVariable("id") long emplId) {
+        return new ResponseEntity<Employee>(employeeService.enableEmployeeProfile(emplId), HttpStatus.OK);
+    }
+
+
+    // deactivate employee profile
+    // http://localhost:8080/RevBankAPI/v2/employees/deactivate/2
+    @PutMapping("employees/deactivate/{id}")
+    public ResponseEntity<Employee> deactivateEmployeeProfile(@PathVariable("id") long emplId) {
+        return new ResponseEntity<Employee>(employeeService.disableEmployeeProfile(emplId), HttpStatus.OK);
+    }
+
 }
