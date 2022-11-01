@@ -2,9 +2,11 @@ package com.revature.projects.repositories;
 
 import com.revature.projects.models.Account;
 import com.revature.projects.models.Customer;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -12,6 +14,9 @@ public class AccountCustomRepositoryImpl implements AccountCustomRepository {
 
     @Autowired
     private EntityManager entityManager;
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
 
     @Override
