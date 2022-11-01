@@ -112,7 +112,7 @@ public class AccountController {
 
     // activate account
     // http://localhost:8080/RevBankAPI/v2/accounts/activate/2
-    @PutMapping("accounts/activate/{id}")
+    @PatchMapping("accounts/activate/{id}")
     public ResponseEntity<Account> activateAccount(@PathVariable("id") long acctId) {
         return new ResponseEntity<Account>(accountService.enableAccount(acctId), HttpStatus.OK);
     }
@@ -120,7 +120,7 @@ public class AccountController {
 
     // deactivate account
     // http://localhost:8080/RevBankAPI/v2/accounts/deactivate/2
-    @PutMapping("accounts/deactivate/{id}")
+    @PatchMapping("accounts/deactivate/{id}")
     public ResponseEntity<Account> deactivateAccount(@PathVariable("id") long acctId) {
         return new ResponseEntity<Account>(accountService.disableAccount(acctId), HttpStatus.OK);
     }
