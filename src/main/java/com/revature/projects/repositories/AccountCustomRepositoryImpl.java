@@ -1,6 +1,7 @@
 package com.revature.projects.repositories;
 
 import com.revature.projects.models.Account;
+import com.revature.projects.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
@@ -43,12 +44,28 @@ public class AccountCustomRepositoryImpl implements AccountCustomRepository {
 
     @Override
     public List<Account> findAccountByCustomerName(String customerNameInput) {
-        String sql = "SELECT a FROM Account a WHERE a.custId IN (SELECT c.customerId FROM Customer c WHERE c.customerName = :ctmrName)";
-        final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
-        query.setParameter("ctmrName", customerNameInput);
+//        String sql = "SELECT a FROM Account a WHERE a.custId = (SELECT c.customerId FROM Customer c WHERE c.customerName LIKE :ctmrName)";
+//        final TypedQuery<Account> query = entityManager.createQuery(sql, Account.class);
+//        query.setParameter("ctmrName", "%" + customerNameInput + "%");
+//
+//        return query.getResultList();
 
-        return query.getResultList();
+/////////////////////////////////
+
+        String sql1 = "SELECT c FROM Customer c WHERE c.customerName LIKE :name";
+        final TypedQuery<Customer> query1 = entityManager.createQuery(sql1, Customer.class);
+        query1.setParameter("name", "%" + customerNameInput + "%");
+
+        long retrievedCustomerId = query1.getSingleResult().getCustomerId();
+//        long retrievedCustomerId = retrievedCustomer.getCustomerId();
+
+        String sql2 = "SELECT a FROM Account a WHERE a.custId = 2";
+        final TypedQuery<Account> query2 = entityManager.createQuery(sql2, Account.class);
+//        query2.setParameter("custid", retrievedCustomerId);
+
+        return query2.getResultList();
     }
+
 
     @Override
     public List<Account> findAccountByAccountActiveStatus(int accountActiveStatusInput) {

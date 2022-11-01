@@ -70,15 +70,15 @@ public class CustomerServiceTest {
             }
 
             @Override
+            public Customer deactivateCustomerAccount(long customerid) {
+                return null;
+            }
+
+            @Override
             public boolean removeCustomer(long id) {
                 customerRepository.deleteById(id);
 
                 return true;
-            }
-
-            @Override
-            public String welcomeCustomer() {
-                return customerRepository.greetingCustomer();
             }
 
             @Override
@@ -148,15 +148,6 @@ public class CustomerServiceTest {
 
         // then
         verify(customerRepository).deleteById(Long.valueOf(1));
-    }
-
-    @Test
-    void welcomeCustomerTest() {
-        // when
-        customerService.welcomeCustomer();
-
-        // then
-        verify(customerRepository).greetingCustomer();
     }
 
     @Test

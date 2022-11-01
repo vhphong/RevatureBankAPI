@@ -117,23 +117,6 @@ public class CustomerController {
     }
 
 
-    // greeting a customer
-    @GetMapping("/greeting/{name}")
-    public @ResponseBody
-    String greetingCustomer(@PathVariable("name") String customerName) {
-        return "Hello, " + customerName;
-        // return "Hello";
-    }
-
-
-    // welcome a customer
-    @GetMapping("/welcome")
-    public ResponseEntity<String> welcomeCustomer() {
-        String welcomeMessage = customerService.welcomeCustomer();
-        return new ResponseEntity<String>(welcomeMessage, HttpStatus.OK);
-    }
-
-
     // check an email if it is taken
     @GetMapping("/existed_email/{emailparam}")
     public Boolean checkEmailIsTaken(@PathVariable("emailparam") String email) {

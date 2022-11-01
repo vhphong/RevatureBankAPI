@@ -112,6 +112,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer deactivateCustomerAccount(long customerid) {
+        return null;
+    }
+
+    @Override
     public boolean removeCustomer(long id) {
         try {
             customerRepository.deleteById(id);
@@ -122,12 +127,6 @@ public class CustomerServiceImpl implements CustomerService {
 
             return false;
         }
-    }
-
-    @Override
-    public String welcomeCustomer() {
-        // return "Welcome, Phong!";
-        return customerRepository.greetingCustomer();
     }
 
     @Override

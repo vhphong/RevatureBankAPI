@@ -12,17 +12,21 @@ public interface AccountService {
 
     Account listAccountById(long id);
 
-    List<Account> listAllAccountsByName(String name);
-
     List<Account> listAllAccountsBalanceGreaterThan(double minBalance);
 
     List<Account> listAllAccountsByType(String accountTypeInput);
 
     List<Account> listAllAccountsByCustomerId(long customerIdInput);
 
+    List<Account> listAllAccountsByCustomerName(String customerNameInput);
+
     List<Account> listAllAccountsByAccountActiveStatus(int accountStatus);
 
     Account modifyAccount(Account account, long id);
+
+    Account enableAccount(long accountId);
+
+    Account disableAccount(long accountId);
 
     boolean removeAccount(long id);
 }

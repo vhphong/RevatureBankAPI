@@ -12,7 +12,6 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
     @Autowired
     private EntityManager entityManager;
 
-
     @Override
     public List<Customer> findCustomerByName(String nameInput) {
         String sql = "SELECT c FROM Customer c WHERE c.customerName LIKE :name";
@@ -31,7 +30,6 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
         return query.getResultList();
     }
 
-
     @Override
     public List<Customer> findCustomerByNameAndEmail(String nameInput, String emailInput) {
         String sql = "SELECT c FROM Customer c WHERE c.customerName = :name AND c.customerEmail = :email";
@@ -40,11 +38,6 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
         query.setParameter("email", emailInput);
 
         return query.getResultList();
-    }
-
-    @Override
-    public String greetingCustomer() {
-        return "Welcome, Phong!";
     }
 
     @Override

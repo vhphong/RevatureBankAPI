@@ -60,52 +60,75 @@ public class AccountController {
 
     // build get account by Id REST API
     // http://localhost:8080/RevBankAPI/v2/accounts/id/1
-    @GetMapping("/accounts/id/{id}")
+    @GetMapping("accounts/id/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable("id") long acctId) {
         return new ResponseEntity<Account>(accountService.listAccountById(acctId), HttpStatus.OK);
     }
 
 
     // get accounts that have balance greater than a low limit
-    @GetMapping("/accounts/balance/greater/{lowLimit}")
+    @GetMapping("accounts/balance/greater/{lowLimit}")
     public List<Account> getAccountsHaveBalanceGreaterThan(@PathVariable("lowLimit") double minValue) {
         return accountService.listAllAccountsBalanceGreaterThan(minValue);
     }
 
 
     // gets accounts by account type
-    @GetMapping("/accounts/type/{accountTypeInputParam}")
+    @GetMapping("accounts/type/{accountTypeInputParam}")
     public List<Account> getAccountsByAccountType(@PathVariable("accountTypeInputParam") String accountType) {
         return accountService.listAllAccountsByType(accountType);
     }
 
 
     // gets all accounts by customer ID
-    @GetMapping("/accounts/customerId/{customerIdParam}")
+    @GetMapping("accounts/customer_id/{customerIdParam}")
     public List<Account> getAccountByCustId(@PathVariable("customerIdParam") long ctmrId) {
         return accountService.listAllAccountsByCustomerId(ctmrId);
     }
 
 
+    // gets all accounts by customer name
+    @GetMapping("accounts/customer_name/{customerNameParam}")
+    public List<Account> getAccountByCustomerName(@PathVariable("customerNameParam") String ctmrName) {
+        return accountService.listAllAccountsByCustomerName(ctmrName);
+    }
+
+
     // get all accounts by account active status
-    @GetMapping("/accounts/account_status/{accountStatusParam}")
+    @GetMapping("accounts/account_status/{accountStatusParam}")
     public List<Account> getAccountByAccountActiveStatus(@PathVariable("accountStatusParam") int acctStatus) {
         return accountService.listAllAccountsByAccountActiveStatus(acctStatus);
     }
 
 
     // build update account REST API
-    // http://localhost:8080/RevBankAPI/v2/accounts/17
-    @PutMapping("/accounts/{id}")
+    // http://localhost:8080/RevBankAPI/v2/accounts/2
+    @PutMapping("accounts/{id}")
     public ResponseEntity<Account> updateAccount(@PathVariable("id") long acctId,
                                                  @RequestBody Account account) {
         return new ResponseEntity<Account>(accountService.modifyAccount(account, acctId), HttpStatus.OK);
     }
 
 
+    // activate account
+    // http://localhost:8080/RevBankAPI/v2/accounts/activate/2
+    @PutMapping("accounts/activate/{id}")
+    public ResponseEntity<Account> activateAccount(@PathVariable("id") long acctId) {
+        return new ResponseEntity<Account>(accountService.enableAccount(acctId), HttpStatus.OK);
+    }
+
+
+    // deactivate account
+    // http://localhost:8080/RevBankAPI/v2/accounts/deactivate/2
+    @PutMapping("accounts/deactivate/{id}")
+    public ResponseEntity<Account> deactivateAccount(@PathVariable("id") long acctId) {
+        return new ResponseEntity<Account>(accountService.disableAccount(acctId), HttpStatus.OK);
+    }
+
+
     // build delete account REST API
     // http://localhost:8080/RevBankAPI/v2/accounts/21
-    @DeleteMapping("/accounts/{id}")
+    @DeleteMapping("accounts/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable("id") long acctId) {
         if (acctId > 0) {
             boolean isDeleted = accountService.removeAccount(acctId);

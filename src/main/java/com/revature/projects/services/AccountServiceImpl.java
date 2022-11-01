@@ -35,11 +35,6 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public List<Account> listAllAccountsByName(String name) {
-        return null;
-    }
-
-    @Override
     public List<Account> listAllAccountsBalanceGreaterThan(double minBalance) {
         return accountRepository.findAccountBalanceGreaterThan(minBalance);
     }
@@ -52,6 +47,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> listAllAccountsByCustomerId(long customerIdInput) {
         return accountRepository.findAccountByCustId(customerIdInput);
+    }
+
+    @Override
+    public List<Account> listAllAccountsByCustomerName(String customerNameInput) {
+        return accountRepository.findAccountByCustomerName(customerNameInput);
     }
 
     @Override
@@ -91,6 +91,22 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(existingAccount);
 
         return existingAccount;
+    }
+
+    @Override
+    public Account enableAccount(long accountId) {
+        Optional<Account> retrievedAccount = accountRepository.findById(accountId);
+        retrievedAccount.get().setAccountActiveStatus(1);
+
+        return retrievedAccount.get();
+    }
+
+    @Override
+    public Account disableAccount(long accountId) {
+        Optional<Account> retrievedAccount = accountRepository.findById(accountId);
+        retrievedAccount.get().setAccountActiveStatus(0);
+
+        return retrievedAccount.get();
     }
 
 

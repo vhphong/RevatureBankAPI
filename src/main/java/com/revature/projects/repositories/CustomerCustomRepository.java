@@ -12,7 +12,5 @@ public interface CustomerCustomRepository {
 
     List<Customer> findCustomerByNameAndEmail(String name, String emailAddress);
 
-    String greetingCustomer();
-
     Boolean checkExistedEmail(String email);
 }

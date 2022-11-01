@@ -20,9 +20,9 @@ public interface CustomerService {
 
     Customer modifyCustomer(Customer customer, long id);
 
-    boolean removeCustomer(long id);
+    Customer deactivateCustomerAccount(long customerid);
 
-    String welcomeCustomer();
+    boolean removeCustomer(long id);
 
     boolean checkEmailIfTaken(String email) ;
 }
