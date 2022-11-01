@@ -23,8 +23,8 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public Account insertAccount(Account account) {
-        return accountRepository.save(account);
+    public Account insertAccount(Account accountInput) {
+        return accountRepository.save(accountInput);
     }
 
 
@@ -35,8 +35,8 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public List<Account> listAllAccountsBalanceGreaterThan(double minBalance) {
-        return accountRepository.findAccountBalanceGreaterThan(minBalance);
+    public List<Account> listAllAccountsBalanceGreaterThan(double minBalanceInput) {
+        return accountRepository.findAccountBalanceGreaterThan(minBalanceInput);
     }
 
     @Override
@@ -61,25 +61,25 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public Account listAccountById(long id) {
-        Optional<Account> account = accountRepository.findById(id);
+    public Account listAccountById(long accountIdInput) {
+        Optional<Account> account = accountRepository.findById(accountIdInput);
 
         if (account.isPresent()) {
             return account.get();
         } else {
-            throw new ResourceNotFoundException("Account with Id: " + id + " was not found.");
+            throw new ResourceNotFoundException("Account with Id: " + accountIdInput + " was not found.");
         }
 
         //        return accountRepository.findById(id).orElseThrow(
-//                () -> new ResourceNotFoundException("Account with Id: " + id + " was not found."));
+//                () -> new ResourceNotFoundException("Account with Id: " + accountIdInput + " was not found."));
     }
 
 
     @Override
-    public Account modifyAccount(Account account, long id) {
+    public Account modifyAccount(Account account, long accountIdInput) {
         // check whether account with given id is existing in the database or not
-        Account existingAccount = accountRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Account with Id: " + id + " was not found."));
+        Account existingAccount = accountRepository.findById(accountIdInput).orElseThrow(
+                () -> new ResourceNotFoundException("Account with Id: " + accountIdInput + " was not found."));
 
         existingAccount.setCustId(account.getCustId());
         existingAccount.setBalance(account.getBalance());
@@ -94,9 +94,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account enableAccount(long accountId) {
-        Account retrievedAccount = accountRepository.findById(accountId).orElseThrow(
-                () -> new ResourceNotFoundException("Account with Id: " + accountId + " was not found."));
+    public Account enableAccount(long accountIdInput) {
+        Account retrievedAccount = accountRepository.findById(accountIdInput).orElseThrow(
+                () -> new ResourceNotFoundException("Account with Id: " + accountIdInput + " was not found."));
         retrievedAccount.setAccountActiveStatus(1);
         accountRepository.save(retrievedAccount);
 
@@ -104,25 +104,22 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account disableAccount(long accountId) {
-        Account retrievedAccount = accountRepository.findById(accountId).orElseThrow(
-                () -> new ResourceNotFoundException("Account with Id: " + accountId + " was not found."));
+    public Account disableAccount(long accountIdInput) {
+        Account retrievedAccount = accountRepository.findById(accountIdInput).orElseThrow(
+                () -> new ResourceNotFoundException("Account with Id: " + accountIdInput + " was not found."));
         retrievedAccount.setAccountActiveStatus(0);
         accountRepository.save(retrievedAccount);
 
         return retrievedAccount;
     }
 
-
     @Override
-    public boolean removeAccount(long id) {
+    public boolean removeAccount(long accountIdInput) {
         try {
-            accountRepository.deleteById(id);
-
+            accountRepository.deleteById(accountIdInput);
             return true;
         } catch (Exception error) {
             System.out.println(error.getMessage());
-
             return false;
         }
     }

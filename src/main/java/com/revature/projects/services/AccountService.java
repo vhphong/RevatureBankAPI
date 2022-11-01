@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface AccountService {
 
-    Account insertAccount(Account account);
+    Account insertAccount(Account accountInput);
 
     List<Account> listAllAccounts();
 
-    Account listAccountById(long id);
+    Account listAccountById(long accountIdInput);
 
-    List<Account> listAllAccountsBalanceGreaterThan(double minBalance);
+    List<Account> listAllAccountsBalanceGreaterThan(double minBalanceInput);
 
     List<Account> listAllAccountsByType(String accountTypeInput);
 
@@ -22,11 +22,11 @@ public interface AccountService {
 
     List<Account> listAllAccountsByAccountActiveStatus(int accountStatus);
 
-    Account modifyAccount(Account account, long id);
+    Account modifyAccount(Account account, long accountIdInput);
 
-    Account enableAccount(long accountId);
+    Account enableAccount(long accountIdInput);
 
-    Account disableAccount(long accountId);
+    Account disableAccount(long accountIdInput);
 
-    boolean removeAccount(long id);
+    boolean removeAccount(long accountIdInput);
 }

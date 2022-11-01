@@ -28,7 +28,7 @@ public class AccountController {
     }
 
 
-    // build create account REST API
+    // create account
     /*
         {
             "custId": 1,
@@ -50,7 +50,7 @@ public class AccountController {
     }
 
 
-    // build get all accounts REST API
+    // get all accounts
     // http://localhost:8080/RevBankAPI/v2/accounts
     @GetMapping("accounts")
     public List<Account> getAllAccounts() {
@@ -58,7 +58,7 @@ public class AccountController {
     }
 
 
-    // build get account by Id REST API
+    // get account by Id
     // http://localhost:8080/RevBankAPI/v2/accounts/id/1
     @GetMapping("accounts/id/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable("id") long acctId) {
@@ -101,7 +101,7 @@ public class AccountController {
     }
 
 
-    // build update account REST API
+    // update account
     // http://localhost:8080/RevBankAPI/v2/accounts/2
     @PutMapping("accounts/{id}")
     public ResponseEntity<Account> updateAccount(@PathVariable("id") long acctId,
@@ -126,20 +126,20 @@ public class AccountController {
     }
 
 
-    // build delete account REST API
-    // http://localhost:8080/RevBankAPI/v2/accounts/21
-    @DeleteMapping("accounts/{id}")
+    // delete account
+    // http://localhost:8080/RevBankAPI/v2/accounts/delete/7
+    @DeleteMapping("accounts/delete/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable("id") long acctId) {
-        if (acctId > 0) {
+        if ((acctId > 0) && (acctId == (long) acctId)) {
             boolean isDeleted = accountService.removeAccount(acctId);
 
             if (isDeleted) {
-                return new ResponseEntity<String>("Account id: " + acctId + " deleted successfully.", HttpStatus.OK);
+                return new ResponseEntity<String>("Account Id # " + acctId + " deleted successfully.", HttpStatus.OK);
             } else {
-                return new ResponseEntity<String>("Account id: " + acctId + " was not found to delete.", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<String>("Account Id # " + acctId + " was not found to delete.", HttpStatus.NOT_FOUND);
             }
         } else {
-            return new ResponseEntity<String>("Account id: " + acctId + " is invalid.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Account Id # " + acctId + " is invalid.", HttpStatus.BAD_REQUEST);
         }
     }
 }
