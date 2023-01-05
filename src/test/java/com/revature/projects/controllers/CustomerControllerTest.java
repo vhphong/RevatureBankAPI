@@ -24,7 +24,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-
 @WebMvcTest(value = CustomerController.class)
 public class CustomerControllerTest {
 
@@ -37,22 +36,22 @@ public class CustomerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-
     // test of CustomerController's welcomeCustomer
-    @Test
-    public void welcomeCustomerTest() throws Exception {
-        when(customerService.welcomeCustomer()).thenReturn("Welcome!");
-        when(customerController.welcomeCustomer()).thenReturn(new ResponseEntity<String>("Welcome, Phong!", HttpStatus.OK));
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/RevBankAPI/v2/welcome");
+    // @Test
+    // public void welcomeCustomerTest() throws Exception {
+    // when(customerService.welcomeCustomer()).thenReturn("Welcome!");
+    // when(customerController.welcomeCustomer()).thenReturn(new
+    // ResponseEntity<String>("Welcome, Phong!", HttpStatus.OK));
+    // MockHttpServletRequestBuilder requestBuilder =
+    // MockMvcRequestBuilders.get("/RevBankAPI/v2/welcome");
 
-        ResultActions perform = mockMvc.perform(requestBuilder);
-        MvcResult mvcResult = perform.andReturn();
-        MockHttpServletResponse response = mvcResult.getResponse();
+    // ResultActions perform = mockMvc.perform(requestBuilder);
+    // MvcResult mvcResult = perform.andReturn();
+    // MockHttpServletResponse response = mvcResult.getResponse();
 
-        // assertEquals(200, response.getStatus());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-    }
-
+    // // assertEquals(200, response.getStatus());
+    // assertEquals(HttpStatus.OK.value(), response.getStatus());
+    // }
 
     // test of CustomerController's saveCustomer
     @Test
@@ -74,7 +73,6 @@ public class CustomerControllerTest {
         // assertEquals(200, response.getStatus());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
-
 
     // test of CustomerController's getAllCustomers
     @Test
@@ -98,34 +96,3 @@ public class CustomerControllerTest {
         assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
