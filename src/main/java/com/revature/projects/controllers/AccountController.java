@@ -28,6 +28,12 @@ public class AccountController {
     }
 
 
+    @GetMapping("accounts/welcome")
+    public String welcomeAccounts() {
+        return "Welcome to the endpoint accounts/welcome";
+    }
+
+
     // create account
     /*
         {

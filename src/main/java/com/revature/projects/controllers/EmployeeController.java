@@ -27,6 +27,12 @@ public class EmployeeController {
     }
 
 
+    @GetMapping("employees/welcome")
+    public String welcomeEmployees() {
+        return "Welcome to the endpoint employees/welcome";
+    }
+
+
     // to create employee
     /*
      * Body's JSON:

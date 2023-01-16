@@ -26,6 +26,13 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
+
+    @GetMapping("customers/welcome")
+    public String welcomeCustomers() {
+        return "Welcome to the endpoint customers/welcome";
+    }
+
+
     // to create customer
     // http://localhost:8080/RevBankAPI/v2/customers/create
     /*
