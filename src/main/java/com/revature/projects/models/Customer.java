@@ -1,12 +1,16 @@
 package com.revature.projects.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "customer")
 public class Customer {
 
@@ -31,10 +35,6 @@ public class Customer {
 
     @Column(name = "customer_password")
     private String customerPassword;
-
-    public Customer() {
-        super();
-    }
 
     public Customer(String customerName, String customerEmail, String customerPassword) {
         this.customerName = customerName;
