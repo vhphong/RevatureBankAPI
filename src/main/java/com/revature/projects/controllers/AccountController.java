@@ -2,7 +2,6 @@ package com.revature.projects.controllers;
 
 import com.revature.projects.exceptions.BadRequestException;
 import com.revature.projects.models.Account;
-import com.revature.projects.repositories.AccountRepository;
 import com.revature.projects.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,21 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/RevBankAPI/v2/")
 public class AccountController {
 
     @Autowired
-    private final AccountRepository accountRepository;
-
-    @Autowired
     private AccountService accountService;
-
-    public AccountController(AccountRepository accountRepository) {
-        super();
-        this.accountRepository = accountRepository;
-    }
 
 
     @GetMapping("accounts/welcome")
@@ -34,24 +24,24 @@ public class AccountController {
     }
 
 
-    // create account
+    // to create account
+    // http://localhost:8080/RevBankAPI/v2/accounts/create
     /*
-        {
+     * Body's JSON:
+       {
             "custId": 1,
             "balance": 0.00,
             "dateOfOpening": "2020-11-22",
             "type": "debit",
             "accountActiveStatus": true
         }
-
-        http://localhost:8080/RevBankAPI/v2/accounts
     */
     @PostMapping("accounts/create")
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
         if (account != null) {
             return new ResponseEntity<Account>(accountService.insertAccount(account), HttpStatus.CREATED);
         } else {
-            throw new BadRequestException("Request body does not contain customer data");
+            throw new BadRequestException("Request body does not contain account data");
         }
     }
 
@@ -136,7 +126,7 @@ public class AccountController {
     // http://localhost:8080/RevBankAPI/v2/accounts/delete/7
     @DeleteMapping("accounts/delete/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable("id") long acctId) {
-        if ((acctId > 0) && (acctId == (long) acctId)) {
+        if ((acctId > 0) && (acctId == acctId)) {
             boolean isDeleted = accountService.removeAccount(acctId);
 
             if (isDeleted) {
