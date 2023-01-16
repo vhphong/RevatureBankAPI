@@ -1,8 +1,11 @@
 package com.revature.projects.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "customer")
 public class Customer {

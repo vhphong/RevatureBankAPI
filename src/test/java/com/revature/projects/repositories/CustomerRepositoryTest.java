@@ -27,10 +27,10 @@ public class CustomerRepositoryTest {
     @Test
     public void insertCustomerTest() {
         Customer customer1 = new Customer("Test Name 1", "testname1@email.com", "testpassword1");
-        Customer saveCustomer1 = customerRepository.save(customer1);
-        Customer expectedCustomer1 = testEntityManager.find(Customer.class, saveCustomer1.getCustomerId());
+        Customer savedCustomer1 = customerRepository.save(customer1);
+        Customer retrievedCustomer1 = testEntityManager.find(Customer.class, savedCustomer1.getCustomerId());
 
-        assertNotNull(expectedCustomer1);
+        assertNotNull(retrievedCustomer1);
     }
 
 
@@ -42,9 +42,9 @@ public class CustomerRepositoryTest {
 
         customerRepository.saveAll(List.of(customer1, customer2));
 
-        List<Customer> customers = customerRepository.findAll();
+        List<Customer> retrievedAllCustomers = customerRepository.findAll();
 
-        assertThat(customers).size().isGreaterThanOrEqualTo(2);
+        assertThat(retrievedAllCustomers).size().isGreaterThanOrEqualTo(2);
     }
 
 
