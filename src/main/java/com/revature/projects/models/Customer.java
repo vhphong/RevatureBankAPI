@@ -35,4 +35,7 @@ public class Customer {
 
     @Column(name = "customer_password")
     private String customerPassword;
+
+    public Customer(String s1, String s2, String pw) {
+    }
 }
