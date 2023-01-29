@@ -1,14 +1,16 @@
 package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -23,13 +25,14 @@ public class CustomerCustomRepositoryTest {
 
     // test of repository's listAllCustomersByName
     @Test
-    public void findCustomerByNameTest() {
+    public void findCustomersByNameTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
-        customerRepository.save(customer1);
+        Customer savedCustomer1 = customerRepository.save(customer1);
+        String customer1Name = customer1.getCustomerName();
+        
+        List<Customer> retrievedCustomerList = customerRepository.findByCustomerName(customer1Name);
 
-        boolean isExisted = customerRepository.findCustomerByName(customer1.getCustomerName()).isEmpty();
-
-        assertFalse(isExisted);
+        assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
     }
 
 
@@ -37,16 +40,16 @@ public class CustomerCustomRepositoryTest {
     @Test
     void findCustomerByNameAndEmailTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
-        customerRepository.save(customer1);
+        Customer savedCustomer1 = customerRepository.save(customer1);
 
-        boolean isExisted = customerRepository.findCustomerByNameAndEmail("test name 1", "testemail1@rb.com").isEmpty();
+        List<Customer> isExisted = customerRepository.findCustomerByNameAndEmail("test name 1", "testemail1@rb.com");
 
-        assertFalse(isExisted);
+        assertThat(isExisted.size()).isGreaterThanOrEqualTo(1);
     }
 
 
     @Test
-    @Disabled
+//    @Disabled
     void greetingCustomerTest() {
     }
 

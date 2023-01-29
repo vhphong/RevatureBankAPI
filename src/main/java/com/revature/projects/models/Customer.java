@@ -37,6 +37,6 @@ public class Customer implements Serializable {
     @Column(name = "customer_password")
     private String customerPassword;
 
-    public Customer(String s1, String s2, String pw) {
+    public Customer(String name, String email, String password) {
     }
 }

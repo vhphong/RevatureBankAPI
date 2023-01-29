@@ -13,7 +13,16 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Customer> findCustomerByName(String nameInput) {
+    public Customer findCustomerById(Long id) {
+        String sql = "SELECT c FROM Customer c WHERE c.customerId = :cid";
+        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
+        query.setParameter("cid", id);
+
+        return query.getSingleResult();
+    }
+
+    @Override
+    public List<Customer> findCustomersByName(String nameInput) {
         String sql = "SELECT c FROM Customer c WHERE c.customerName LIKE :name";
         final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
         query.setParameter("name", "%" + nameInput + "%");
