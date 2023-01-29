@@ -8,9 +8,9 @@ public interface CustomerCustomRepository {
 
     Customer findCustomerById(Long id);
 
-    List<Customer> findCustomersByName(String name);
+//    List<Customer> findCustomersByName(String name);
 
-    List<Customer> findCustomerByEmail(String email);
+//    List<Customer> findCustomerByEmail(String email);
 
     List<Customer> findCustomerByNameAndEmail(String name, String emailAddress);
 

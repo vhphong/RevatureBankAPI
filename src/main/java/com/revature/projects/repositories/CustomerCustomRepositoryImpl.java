@@ -21,23 +21,23 @@ public class CustomerCustomRepositoryImpl implements CustomerCustomRepository {
         return query.getSingleResult();
     }
 
-    @Override
-    public List<Customer> findCustomersByName(String nameInput) {
-        String sql = "SELECT c FROM Customer c WHERE c.customerName LIKE :name";
-        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
-        query.setParameter("name", "%" + nameInput + "%");
+//    @Override
+//    public List<Customer> findCustomersByName(String nameInput) {
+//        String sql = "SELECT c FROM Customer c WHERE c.customerName LIKE :name";
+//        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
+//        query.setParameter("name", "%" + nameInput + "%");
+//
+//        return query.getResultList();
+//    }
 
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Customer> findCustomerByEmail(String emailInput) {
-        String sql = "SELECT c FROM Customer c WHERE c.customerEmail = :email";
-        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
-        query.setParameter("email", emailInput);
-
-        return query.getResultList();
-    }
+//    @Override
+//    public List<Customer> findCustomerByEmail(String emailInput) {
+//        String sql = "SELECT c FROM Customer c WHERE c.customerEmail = :email";
+//        final TypedQuery<Customer> query = entityManager.createQuery(sql, Customer.class);
+//        query.setParameter("email", emailInput);
+//
+//        return query.getResultList();
+//    }
 
     @Override
     public List<Customer> findCustomerByNameAndEmail(String nameInput, String emailInput) {

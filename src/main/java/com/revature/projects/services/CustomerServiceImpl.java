@@ -49,24 +49,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> listAllCustomersByName(String name) {
-        List<Customer> customer = customerRepository.findCustomersByName(name);
+        List<Customer> customer = customerRepository.findByCustomerName(name);
 
         return customer;
     }
 
     @Override
     public List<Customer> listAllCustomersByEmail(String email) {
-        List<Customer> customer = customerRepository.findCustomerByEmail(email);
+        List<Customer> customer = customerRepository.findByCustomerEmail(email);
 
         return customer;
     }
 
     @Override
     public List<Customer> retrieveCustomerByNameAndEmail(String name, String email) {
-        List<Customer> retCustomer = customerRepository.findCustomerByNameAndEmail(name, email);
-
-        return retCustomer;
+        return null;
     }
+
+//    @Override
+//    public List<Customer> retrieveCustomerByNameAndEmail(String name, String email) {
+//        List<Customer> retCustomer = customerRepository.findCustomerByNameAndEmail(name, email);
+//
+//        return retCustomer;
+//    }
 
     @Override
     public Customer modifyCustomer(Customer customer, long id) {

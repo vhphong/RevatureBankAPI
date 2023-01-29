@@ -145,7 +145,7 @@ public class CustomerServiceTest {
         customerService.insertCustomer(new Customer(1L, "phong", "phong@email.com", date, "11", "123 A St", "fakepwd"));
 
         // then
-        verify(customerRepository).findCustomersByName("phong").isEmpty();
+        verify(customerRepository).findByCustomerName("phong").isEmpty();
     }
 
     @Test
