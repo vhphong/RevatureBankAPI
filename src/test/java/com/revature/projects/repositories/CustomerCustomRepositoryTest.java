@@ -29,7 +29,7 @@ public class CustomerCustomRepositoryTest {
     public void findCustomersByNameTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer1 = customerRepository.save(customer1);
-        String customer1Name = customer1.getCustomerName();
+        String customer1Name = savedCustomer1.getCustomerName();
 
         List<Customer> retrievedCustomerList = customerRepository.findByCustomerName(customer1Name);
 
