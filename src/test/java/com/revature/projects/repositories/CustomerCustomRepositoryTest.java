@@ -60,7 +60,6 @@ public class CustomerCustomRepositoryTest {
 
         List<Customer> retrievedCustomerList = customerRepository.findCustomerByNameAndEmail(customer1Name, customer1Email);
 
-
         Assertions.assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
     }
 
