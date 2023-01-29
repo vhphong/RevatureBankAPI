@@ -24,7 +24,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer insertCustomer(Customer customer) {
-        customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+//        customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+
+        if (!customerRepository.findByCustomerName(customer.getCustomerName()).isEmpty()) {
+            throw new ResourceNotFoundException("Customer name " + customer.getCustomerName() + " has been taken.");
+        }
+
+        if (!customerRepository.findByCustomerEmail(customer.getCustomerEmail()).isEmpty()) {
+            throw new ResourceNotFoundException("Customer email " + customer.getCustomerEmail() + " has been taken.");
+        }
+
         return customerRepository.save(customer);
     }
 
