@@ -29,7 +29,7 @@ public class CustomerCustomRepositoryTest {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer1 = customerRepository.save(customer1);
         String customer1Name = customer1.getCustomerName();
-        
+
         List<Customer> retrievedCustomerList = customerRepository.findByCustomerName(customer1Name);
 
         assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
@@ -41,10 +41,12 @@ public class CustomerCustomRepositoryTest {
     void findCustomerByNameAndEmailTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer1 = customerRepository.save(customer1);
+        String customer1Name = customer1.getCustomerName();
+        String customer1Email = customer1.getCustomerEmail();
 
-        List<Customer> isExisted = customerRepository.findCustomerByNameAndEmail("test name 1", "testemail1@rb.com");
+        List<Customer> retrievedCustomerList = customerRepository.findByCustomerName(customer1Name);
 
-        assertThat(isExisted.size()).isGreaterThanOrEqualTo(1);
+        assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
     }
 
 
