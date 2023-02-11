@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface CustomerCustomRepository {
 
-    List<Customer> findCustomerByName(String name);
+    Customer findCustomerById(Long id);
+
+    List<Customer> findCustomersByName(String name);
 
     List<Customer> findCustomerByEmail(String email);
 

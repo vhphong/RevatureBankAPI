@@ -1,6 +1,7 @@
 package com.revature.projects.repositories;
 
 import com.revature.projects.models.Customer;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -28,9 +29,22 @@ public class CustomerCustomRepositoryTest {
     public void findCustomersByNameTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer1 = customerRepository.save(customer1);
-        String customer1Name = customer1.getCustomerName();
+        String customer1Name = savedCustomer1.getCustomerName();
 
         List<Customer> retrievedCustomerList = customerRepository.findByCustomerName(customer1Name);
+
+        assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
+    }
+
+
+    // test of repository's findCustomersByEmail
+    @Test
+    public void findCustomersByEmailTest() {
+        Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
+        Customer savedCustomer1 = customerRepository.save(customer1);
+        String customer1Email = savedCustomer1.getCustomerEmail();
+
+        List<Customer> retrievedCustomerList = customerRepository.findByCustomerName(customer1Email);
 
         assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
     }
@@ -41,12 +55,12 @@ public class CustomerCustomRepositoryTest {
     void findCustomerByNameAndEmailTest() {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         Customer savedCustomer1 = customerRepository.save(customer1);
-        String customer1Name = customer1.getCustomerName();
-        String customer1Email = customer1.getCustomerEmail();
+        String customer1Name = savedCustomer1.getCustomerName();
+        String customer1Email = savedCustomer1.getCustomerEmail();
 
-        List<Customer> retrievedCustomerList = customerRepository.findCustomerByNameAndEmail(customer1Name, customer1Email);
+        List<Customer> retrievedCustomerList = customerRepository.findByCustomerNameAndCustomerEmail(customer1Name, customer1Email);
 
-        assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
+        Assertions.assertThat(retrievedCustomerList.size()).isGreaterThanOrEqualTo(1);
     }
 
 
@@ -62,7 +76,7 @@ public class CustomerCustomRepositoryTest {
         Customer customer1 = new Customer("test name 1", "testemail1@rb.com", "123");
         customerRepository.save(customer1);
 
-        boolean isExisted = customerRepository.checkExistedEmail("testemail1@rb.com").booleanValue();
+        boolean isExisted = customerRepository.existsById(customer1.getCustomerId());
 
         assertTrue(isExisted);
     }

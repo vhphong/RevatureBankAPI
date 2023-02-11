@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> listAllCustomersByName(String name) {
-        List<Customer> customer = customerRepository.findCustomerByName(name);
+        List<Customer> customer = customerRepository.findCustomersByName(name);
 
         return customer;
     }
