@@ -2,6 +2,7 @@ package com.revature.projects.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.projects.models.Customer;
+import com.revature.projects.repositories.CustomerRepository;
 import com.revature.projects.services.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -16,6 +17,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,6 +34,9 @@ public class CustomerControllerTest {
 
     @MockBean
     private CustomerController customerController;
+
+    @MockBean
+    private CustomerRepository customerRepository;
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,6 +58,7 @@ public class CustomerControllerTest {
     // assertEquals(HttpStatus.OK.value(), response.getStatus());
     // }
 
+
     // test of CustomerController's saveCustomer
     @Test
     public void saveCustomerTest() throws Exception {
@@ -59,9 +68,7 @@ public class CustomerControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String customerJson = objectMapper.writeValueAsString(newTestCustomer);
 
-        RequestBuilder requestBuilder = post("/RevBankAPI/v2/customers/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(customerJson);
+        RequestBuilder requestBuilder = post("/RevBankAPI/v2/customers/create").contentType(MediaType.APPLICATION_JSON).content(customerJson);
 
         ResultActions perform = mockMvc.perform(requestBuilder);
         MvcResult mvcResult = perform.andReturn();
@@ -70,6 +77,7 @@ public class CustomerControllerTest {
         // assertEquals(200, response.getStatus());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
+
 
     // test of CustomerController's getAllCustomers
     @Test
@@ -82,14 +90,86 @@ public class CustomerControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonReq = objectMapper.writeValueAsString(customer);
 
-        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/all")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonReq);
+        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/all").contentType(MediaType.APPLICATION_JSON).content(jsonReq);
 
         ResultActions resultActions = mockMvc.perform(requestBuilder);
         MvcResult mvcResult = resultActions.andReturn();
         MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
 
         assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
+    }
+
+
+    // test of CustomerController's getCustomerById
+    @Test
+    void getCustomerByIdTest() throws Exception {
+        // when
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+        String dateInString = "7-Jun-2013";
+        Date date = formatter.parse(dateInString);
+        // when
+        Customer addedCustomer = new Customer(1L, "phong", "phong@email.com", date, "11", "123 A St", "fakepwd");
+        customerService.insertCustomer(addedCustomer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonReq = objectMapper.writeValueAsString(addedCustomer);
+
+        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/id/" + addedCustomer.getCustomerId()).contentType(MediaType.APPLICATION_JSON).content(jsonReq);
+
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+        MvcResult mvcResult = resultActions.andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
+    }
+
+
+    @Test
+    void getCustomerByNameTest() throws Exception {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+        String dateInString = "7-Jun-2013";
+        Date date = formatter.parse(dateInString);
+        // when
+        Customer addedCustomer = new Customer(1L, "phong", "phong@email.com", date, "11", "123 A St", "fakepwd");
+        customerService.insertCustomer(addedCustomer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonReq = objectMapper.writeValueAsString(addedCustomer);
+
+        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/name/" + addedCustomer.getCustomerName()).contentType(MediaType.APPLICATION_JSON).content(jsonReq);
+
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+        MvcResult mvcResult = resultActions.andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
+    }
+
+
+
+    @Test
+    void getCustomerByEmailTest() {
+    }
+
+
+    @Test
+    void getCustomerByNameAndEmailTest() {
+    }
+
+
+    @Test
+    void updateCustomerTest() {
+    }
+
+
+    @Test
+    void deleteCustomerTest() {
+    }
+
+
+    @Test
+    void checkEmailIsTaken() {
     }
 }
