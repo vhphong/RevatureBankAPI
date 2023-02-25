@@ -24,7 +24,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer insertCustomer(Customer customer) {
-        customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+//        customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+
+        if (!customerRepository.findByCustomerName(customer.getCustomerName()).isEmpty()) {
+            throw new ResourceNotFoundException("Customer name " + customer.getCustomerName() + " has been taken.");
+        }
+
+        if (!customerRepository.findByCustomerEmail(customer.getCustomerEmail()).isEmpty()) {
+            throw new ResourceNotFoundException("Customer email " + customer.getCustomerEmail() + " has been taken.");
+        }
+
         return customerRepository.save(customer);
     }
 
@@ -49,24 +58,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> listAllCustomersByName(String name) {
-        List<Customer> customer = customerRepository.findCustomersByName(name);
+        List<Customer> customer = customerRepository.findByCustomerName(name);
 
         return customer;
     }
 
     @Override
     public List<Customer> listAllCustomersByEmail(String email) {
-        List<Customer> customer = customerRepository.findCustomerByEmail(email);
+        List<Customer> customer = customerRepository.findByCustomerEmail(email);
 
         return customer;
     }
 
     @Override
     public List<Customer> retrieveCustomerByNameAndEmail(String name, String email) {
-        List<Customer> retCustomer = customerRepository.findCustomerByNameAndEmail(name, email);
-
-        return retCustomer;
+        return null;
     }
+
+//    @Override
+//    public List<Customer> retrieveCustomerByNameAndEmail(String name, String email) {
+//        List<Customer> retCustomer = customerRepository.findCustomerByNameAndEmail(name, email);
+//
+//        return retCustomer;
+//    }
 
     @Override
     public Customer modifyCustomer(Customer customer, long id) {

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -126,12 +127,18 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void listCustomerByIdTest() {
+    void listCustomerByIdTest() throws ParseException {
         // when
-//        customerService.listCustomerById(1L);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+        String dateInString = "7-Jun-2013";
+        Date date = formatter.parse(dateInString);
+        // when
+        Customer newCustomer = new Customer("phong", "testemail@email.com", "testpassword");
+        customerService.insertCustomer(newCustomer);
 
         // then
-        verify(customerRepository).findCustomerById(1L);
+        assertThat(customerRepository.findByCustomerName("phong").get(1).getCustomerId()).isGreaterThan(0);
     }
 
     @Test
@@ -145,7 +152,7 @@ public class CustomerServiceTest {
         customerService.insertCustomer(new Customer(1L, "phong", "phong@email.com", date, "11", "123 A St", "fakepwd"));
 
         // then
-        verify(customerRepository).findByCustomerName("phong").isEmpty();
+        assertTrue(customerRepository.findByCustomerName("phong").isEmpty());
     }
 
     @Test

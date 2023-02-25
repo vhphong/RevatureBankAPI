@@ -10,14 +10,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -62,7 +59,7 @@ public class CustomerControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String customerJson = objectMapper.writeValueAsString(newTestCustomer);
 
-        RequestBuilder requestBuilder = post("/RevBankAPI/v2/customers")
+        RequestBuilder requestBuilder = post("/RevBankAPI/v2/customers/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(customerJson);
 
@@ -85,7 +82,7 @@ public class CustomerControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonReq = objectMapper.writeValueAsString(customer);
 
-        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers")
+        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/all")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonReq);
 
