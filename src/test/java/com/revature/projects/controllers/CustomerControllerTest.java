@@ -148,14 +148,49 @@ public class CustomerControllerTest {
     }
 
 
-
     @Test
-    void getCustomerByEmailTest() {
+    void getCustomerByEmailTest() throws Exception {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+        String dateInString = "7-Jun-2013";
+        Date date = formatter.parse(dateInString);
+        // when
+        Customer addedCustomer = new Customer(1L, "phong", "phong@email.com", date, "11", "123 A St", "fakepwd");
+        customerService.insertCustomer(addedCustomer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonReq = objectMapper.writeValueAsString(addedCustomer);
+
+        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/email/" + addedCustomer.getCustomerEmail()).contentType(MediaType.APPLICATION_JSON).content(jsonReq);
+
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+        MvcResult mvcResult = resultActions.andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
     }
 
 
     @Test
-    void getCustomerByNameAndEmailTest() {
+    void getCustomerByNameAndEmailTest() throws Exception {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+        String dateInString = "7-Jun-2013";
+        Date date = formatter.parse(dateInString);
+        // when
+        Customer addedCustomer = new Customer(1L, "phong", "phong@email.com", date, "11", "123 A St", "fakepwd");
+        customerService.insertCustomer(addedCustomer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonReq = objectMapper.writeValueAsString(addedCustomer);
+
+        RequestBuilder requestBuilder = get("/RevBankAPI/v2/customers/name/" + addedCustomer.getCustomerName() + "/email/" + addedCustomer.getCustomerEmail()).contentType(MediaType.APPLICATION_JSON).content(jsonReq);
+
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+        MvcResult mvcResult = resultActions.andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
     }
 
 
