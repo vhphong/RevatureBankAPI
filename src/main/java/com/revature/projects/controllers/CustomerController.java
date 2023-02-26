@@ -88,14 +88,14 @@ public class CustomerController {
 
 
     // update a customer
-    @PutMapping("/customers/{id}")
+    @PatchMapping("/customers/id/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long cId, @RequestBody Customer customer) {
         return new ResponseEntity<Customer>(customerService.modifyCustomer(customer, cId), HttpStatus.OK);
     }
 
 
     // delete a customer
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/customers/id/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") long cId) {
         if (cId > 0) {
             Boolean isDeleted = customerService.removeCustomer(cId);
@@ -112,8 +112,8 @@ public class CustomerController {
 
 
     // check an email if it is taken
-    @GetMapping("/existed_email/{emailparam}")
-    public Boolean checkEmailIsTaken(@PathVariable("emailparam") String email) {
+    @GetMapping("/customers/existing_email/{emailParam}")
+    public Boolean checkEmailIsTaken(@PathVariable("emailParam") String email) {
         return customerService.checkEmailIfTaken(email);
     }
 }
