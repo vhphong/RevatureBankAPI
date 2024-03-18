@@ -40,7 +40,6 @@ public class Customer implements Serializable {
 
     @Column(name = "dob")
     @Past
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate dob;
 
     @Column(name = "phone")
