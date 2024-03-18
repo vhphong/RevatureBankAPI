@@ -45,25 +45,30 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer insertCustomer(Customer customerInput) {
         if (Objects.isNull(customerInput)) {
+            logger.warn("CustomerServiceImpl >> insertCustomer >> Request body does not contain customer data");
             throw new UnsupportedMediaType("Request body does not contain customer data");
         }
 
         if (!Utils.validateEmail(customerInput.getEmail())) {
-            throw new UnsupportedMediaType("Customer email " + customerInput.getEmail() + " is invalid.");
+            logger.warn("CustomerServiceImpl >> insertCustomer >> Email " + customerInput.getEmail() + " is invalid.");
+            throw new UnsupportedMediaType("Email " + customerInput.getEmail() + " is invalid.");
         }
 
         if (!customerRepository.findByEmail(customerInput.getEmail()).isEmpty() ||
                 !customerRepository.findByEmail(customerInput.getEmail().toLowerCase()).isEmpty()) {
-            throw new UnsupportedMediaType("Customer email " + customerInput.getEmail() + " has been taken.");
+            logger.warn("CustomerServiceImpl >> insertCustomer >> Email " + customerInput.getEmail() + " has been taken.");
+            throw new UnsupportedMediaType("Email " + customerInput.getEmail() + " has been taken.");
         }
 
         customerInput.setEmail(customerInput.getEmail().toLowerCase());
         customerInput.setCreatedDate(LocalDateTime.now());
+        customerInput.setLastUpdatedDate(LocalDateTime.now());
 
         if ((customerInput.getPassword() == null) || (customerInput.getPassword().isEmpty())) {
             customerInput.setPassword(Utils.generateRandomString(8));
         }
 
+        logger.info("CustomerServiceImpl >> insertCustomer >> Saving customerInput: " + customerInput);
         return customerRepository.save(customerInput);
     }
 
